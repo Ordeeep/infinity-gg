@@ -1,31 +1,17 @@
 import React from 'react';
-import SearchPlayer from "./assets/components/searchPlayer"
-import "./index.css"
+import HomePage from './assets/pages/home/HomePage'
+import ProfileViewer from './assets/pages/profile/ProfileViewer'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <>
-      <header className='homeHeader'>
-        <nav className='homeNav'>
-          <a href="#" className='homeLogo'>INFINITY.GG</a>
-          <ul>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Análise de campeões</a></li>
-            <li><a href="#">Estatísticas</a></li>
-            <li><a href="#">Classificações</a></li>
-            <li><a href="#">PatchNotes 16.4</a></li>
-          </ul>
-        </nav>
-      </header>
-      <main className='homeMain'>
-        <div>
-          <h1>INFINITY.GG</h1>
-          <SearchPlayer />
-        </div>
-      </main>
-      <footer>
-      </footer>
-    </>
+    <BrowserRouter>
+      <Routes>
+        //Criando rotas para aplicação web
+        <Route path='/' element={<HomePage />}/>
+        <Route path='/profile' element={<ProfileViewer />}/>
+      </Routes>
+    </BrowserRouter>
   )
 }
 

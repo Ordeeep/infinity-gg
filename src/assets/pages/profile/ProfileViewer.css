@@ -1,0 +1,35 @@
+.profileHeader {
+   width: 100vw;
+   background-color: var(--bg-secondary);
+   padding: 1.5rem 4rem 1rem 4rem;
+   height: 110px;
+
+   .profileNav {
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      ul {
+         display: flex;
+         gap: 1.5rem;
+         font-size: 1.6rem;
+         font-weight: 400;
+         list-style: none;
+         text-decoration: none;
+      }
+
+      .navContainer {
+         margin: 0 auto;
+      }
+
+      a {
+         color: var(--white);
+      }
+
+      .profileLogo {
+         position: absolute;
+         z-index: 1;
+         font-size: 2rem;
+      }
+   }
+}
