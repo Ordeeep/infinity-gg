@@ -1,0 +1,28 @@
+.containerSearchPlayer {
+    width: 100%;
+    border: 2px solid var(--bg-secondary);
+    background-color: var(--white);
+    border-radius: 1rem;
+    padding-left: 10px;
+
+    select {
+        padding: 0.8rem 1.2rem;
+        text-align: center;
+        border: none;
+        border-radius: 1rem;
+        background-color: var(--win);
+        color: var(--white);
+    }
+
+    input {
+        width: 86%;
+        height: 4.5rem;
+        border: none;
+        background-color: transparent;
+        padding-left: 1.5rem;
+    }
+    select:focus, input:focus{
+        outline: none;
+    }
+
+}
