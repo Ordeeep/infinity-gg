@@ -50,6 +50,10 @@ body {
       border-radius: 8px;
       background-color: var(--white);
    }
+   .playerDataContainer{
+      display: flex;
+      justify-content: space-between;
+   }
 
    /*Nav player data*/
    .navPlayerData {
@@ -183,19 +187,21 @@ body {
       .playerEloContainer {
          padding: 10px 16px;
 
-         .soloDuoContainer>span {
+         .eloContainer>span {
             font-size: 1.5rem;
             font-weight: 500;
          }
-         .soloDuoContainer:last-child{
+
+         .eloContainer:last-child {
             border-bottom: 1px solid #acacac9c;
 
          }
-         .soloDuoContainer {
+
+         .eloContainer {
             padding: 10px 0px;
             border-top: 1px solid #acacac9c;
 
-            .soloDuoContainer2 {
+            .eloContainer2 {
                display: flex;
                justify-content: space-between;
                align-items: center;
@@ -218,11 +224,119 @@ body {
                   }
                }
 
+               div+div span {
+                  width: 100%;
+                  display: flex;
+                  justify-content: end;
+               }
+
+               #playerEloWinRateFlex,
+               #playerEloPdlSoloDuo {
+                  font-size: 1.4rem;
+               }
+
                img {
+                  margin-top: 10px;
                   border-radius: 100%;
                }
             }
          }
       }
+
+
+
+      .playerWinRateChampion {
+         .textPlaceHolderHero {
+            width: 100%;
+            font-weight: 600;
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: center;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+         }
+
+         .championsWinRateContainer {
+            table {
+               width: 100%;
+               border-collapse: collapse;
+
+               thead tr {
+                  background-color: var(--bg);
+
+                  th {
+                     padding: 0.8rem 0.6rem;
+                     font-size: 1.2rem;
+                     font-weight: 600;
+                     color: var(--bg-secondary);
+                     text-align: start;
+                  }
+
+                  th+th {
+                     text-align: end;
+                  }
+
+                  margin-bottom: 6px;
+               }
+            }
+
+            tr {
+               padding: 0px 1rem;
+               display: flex;
+               justify-content: space-between;
+               align-items: center;
+               td {
+                  width: 50%;
+                  display: flex;
+               }
+
+               .championWinRateBarContainer {
+                  width: 100%;
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  color: var(--white);
+                  font-size: 1.2rem;
+                  background-color: var(--bg-secondary);
+                  border-radius: 8px;
+
+                  .winRateBar {
+                     text-align: start;
+                     border-radius: 8px 0 0px 8px;
+                     padding: 0.4rem 0.8rem;
+                     background-color: var(--bg-secondary);
+                     width: 70%;
+                  }
+
+                  .loserRateBar {
+                     border-radius: 0 8px 8px 0;
+                     background-color: var(--loser);
+                     padding: 0.4rem 0.8rem;
+                     text-align: end;
+                     width: 30%;
+                  }
+               }
+            }
+            tbody tr+tr{
+               margin-top: 8px;
+            }
+         }
+      }
+
+      #championWinRateName{
+         font-size: 1.2rem;
+         display: flex;
+         align-items: center;
+         margin-left: 5px;
+      }
+      #championWinRateIcon{
+         border-radius: 8px;
+      }
+
+      /*playerHistoryContainer inicio*/
+      
    }
+}
+.playerDataContainer{
+   display: flex;
 }

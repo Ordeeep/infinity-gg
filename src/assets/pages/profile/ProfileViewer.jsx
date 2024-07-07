@@ -47,7 +47,6 @@ function ProfileViewer() {
             </nav>
           </div>
           <div className="playerDataContainer">
-
             <aside className="playerResumeDataContainer">
               {/*Parte da imagem e level do player*/}
               <div className="playerNameContainer">
@@ -86,10 +85,10 @@ function ProfileViewer() {
 
               {/*Parte do elo*/}
               <div className="playerEloContainer">
-                <div className="soloDuoContainer">
+                <div className="eloContainer">
                   <span>Ranqueada Solo/Duo</span>
 
-                  <div className="soloDuoContainer2">
+                  <div className="eloContainer2">
 
                     <div>
                       <img src="https://fakeimg.pl/70x70?font=bebas" alt="elo" />
@@ -100,8 +99,10 @@ function ProfileViewer() {
                     </div>
                     <div>
                       <div>
-                        <span id="playerTotalWinsSoloDuo">36V</span>
-                        <span id="playerTotalLosersSoloDuo">00L</span>
+                        <span>
+                          <span id="playerTotalWinsSoloDuo">36</span>V
+                          <span id="playerTotalLosersSoloDuo">00</span>L
+                        </span>
                       </div>
                       <span id="playerEloPdlSoloDuo">Winrate 50%</span>
                     </div>
@@ -109,24 +110,26 @@ function ProfileViewer() {
                   </div>
                 </div>
 
-                <div className="soloDuoContainer">
-                  <span>Ranqueada Solo/Duo</span>
+                <div className="eloContainer">
+                  <span>Ranqueada Flex</span>
 
-                  <div className="soloDuoContainer2">
+                  <div className="eloContainer2">
 
                     <div>
                       <img src="https://fakeimg.pl/70x70?font=bebas" alt="elo" />
                       <div>
-                        <span id="playerEloNameSoloDuo">Desafiante</span>
-                        <span id="playerEloPdlSoloDuo">1200PDL</span>
+                        <span id="playerEloNameFlex">Desafiante</span>
+                        <span id="playerEloPdlFlex">1200PDL</span>
                       </div>
                     </div>
                     <div>
                       <div>
-                        <span id="playerTotalWinsSoloDuo">36V</span>
-                        <span id="playerTotalLosersSoloDuo">00L</span>
+                        <span>
+                          <span id="playerTotalWinsFlex">36</span>V
+                          <span id="playerTotalLosersFlex">00</span>L
+                        </span>
                       </div>
-                      <span id="playerEloPdlSoloDuo">Winrate 50%</span>
+                      <span id="playerEloWinRateFlex">Winrate 50%</span>
                     </div>
 
                   </div>
@@ -135,50 +138,69 @@ function ProfileViewer() {
               </div>
 
               <div className="playerWinRateChampion">
-                <span>Taxa de vitoria em ranqueadas nos últimos 7 dias</span>
-
-
+                <span className="textPlaceHolderHero">Taxa de vitoria em ranqueadas nos últimos 7 dias</span>
                 <div className="championsWinRateContainer">
                   <table>
+                    <thead>
+                      <tr>
+                        <th>Campeão</th>
+                        <th>Taxa de vitória</th>
+                      </tr>
+                    </thead>
                     <tbody>
-                      <table>
-                        <thead>
-                          <tr>
-                            <th>Campeão</th>
-                            <th>Taxa de vitoria</th>
-                          </tr>
-                        </thead>
-
-                        <tbody>
-                          <tr>
-                            <td>
-                              <img src="https://fakeimg.pl/32x32?font=bebas" alt="elo" />
-                              <span>Amumu</span>
-                            </td>
-
-                            <td>
-                              <div className="championWinRateBarContainer">
-                                <div className="winRateBar">
-                                  <span>18V</span>
-                                </div>
-                                <div className="loserRateBar">
-                                  <span>20L</span>
-                                </div>
-
-                                <span>58%</span>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <tr>
+                        <td>
+                          <img
+                            src="https://fakeimg.pl/32x32?font=bebas"
+                            alt="elo"
+                            id="championWinRateIcon"
+                          />
+                          <span id="championWinRateName">Amumu</span>
+                        </td>
+                        <td>
+                          <div className="championWinRateBarContainer">
+                            <div className="winRateBar">
+                              <span>18V</span>
+                            </div>
+                            <div className="loserRateBar">
+                              <span>20L</span>
+                            </div>
+                          </div>
+                          <span className="winRateChampion" id="winRateChampion">58%</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <img
+                            src="https://fakeimg.pl/32x32?font=bebas"
+                            alt="elo"
+                            id="championWinRateIcon"
+                          />
+                          <span id="championWinRateName">Amumu</span>
+                        </td>
+                        <td>
+                          <div className="championWinRateBarContainer">
+                            <div className="winRateBar">
+                              <span>18V</span>
+                            </div>
+                            <div className="loserRateBar">
+                              <span>20L</span>
+                            </div>
+                          </div>
+                          <span className="winRateChampion" id="winRateChampion">58%</span>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
             </aside>
-            <section className="playerHistoryContainer"></section>
+            <section className="playerHistoryContainer">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit exercitationem ducimus distinctio voluptatibus iste animi accusantium atque autem expedita laborum culpa quae officia, iure reprehenderit magnam quam! Voluptate, odio quae.
+            </section>
           </div>
         </div>
+
       </main>
     </div>
   );
