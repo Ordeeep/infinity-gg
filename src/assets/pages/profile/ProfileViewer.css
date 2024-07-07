@@ -33,3 +33,196 @@
       }
    }
 }
+
+body {
+   width: 100vw;
+   height: 100vh;
+   background-color: var(--bg);
+
+   .profileMain {
+      display: flex;
+      justify-content: center;
+   }
+
+   .navPlayerData,
+   .playerDataContainer,
+   .playerResumeDataContainer {
+      border-radius: 8px;
+      background-color: var(--white);
+   }
+
+   /*Nav player data*/
+   .navPlayerData {
+      display: flex;
+      align-items: center;
+      margin-top: 4rem;
+      margin-bottom: 2rem;
+      padding: 2rem;
+
+      width: 65vw;
+      height: 4rem;
+
+      nav ul {
+         display: flex;
+         gap: 1rem;
+
+         list-style: none;
+         font-size: 1.8rem;
+
+         li {
+            padding: 0.2rem 1rem;
+            border-radius: 8px;
+         }
+
+         li:first-child {
+            background-color: var(--bg-secondary);
+            color: var(--white);
+
+         }
+
+         li:last-child {
+            position: relative;
+
+         }
+
+         span {
+            margin-left: 1rem;
+            border-radius: 1rem;
+            font-size: 1.2rem;
+            position: absolute;
+            top: 0;
+            right: 20;
+            padding: 0.2rem 0.8rem;
+            color: var(--white);
+            font-weight: 600;
+            background-color: red;
+
+         }
+      }
+   }
+
+   /*Nav player data*/
+
+   .playerDataContainer {
+      width: 27%;
+      height: 70rem;
+
+      .playerNameContainer {
+         padding: 15px 16px;
+         display: flex;
+
+         div img {
+            border-radius: 12px;
+         }
+
+         .playerLevelContainer {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-right: 10px;
+
+            div {
+               position: absolute;
+               bottom: -11px;
+               font-size: 1.4rem;
+
+               background-color: var(--bg-secondary);
+               padding: 0.2rem 0.8rem;
+               border-radius: 8px;
+               color: var(--white);
+               font-weight: 500;
+            }
+         }
+
+         .playerNameContainertwo {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            div:first-child {
+               line-height: 16px;
+
+               .playerName {
+                  display: block;
+
+                  font-size: 1.6rem;
+                  font-weight: 500;
+               }
+
+               .playerOldName {
+                  font-size: 1.3rem;
+               }
+            }
+
+            .profilePlayerButton,
+            .profilePlayerButton {
+               width: 45%;
+               height: 3rem;
+               border: none;
+               cursor: pointer;
+               border-radius: 4px;
+               font-weight: 600;
+            }
+
+            .profilePlayerButton:first-child {
+               margin-right: 5px;
+               color: var(--white);
+               background-color: var(--bg-secondary);
+            }
+
+            .profilePlayerButton+.profilePlayerButton {
+               background-color: transparent;
+               border: 2px solid var(--bg-secondary);
+               color: var(--bg-secondary);
+            }
+         }
+      }
+
+      .playerEloContainer {
+         padding: 10px 16px;
+
+         .soloDuoContainer>span {
+            font-size: 1.5rem;
+            font-weight: 500;
+         }
+         .soloDuoContainer:last-child{
+            border-bottom: 1px solid #acacac9c;
+
+         }
+         .soloDuoContainer {
+            padding: 10px 0px;
+            border-top: 1px solid #acacac9c;
+
+            .soloDuoContainer2 {
+               display: flex;
+               justify-content: space-between;
+               align-items: center;
+
+               div:first-child {
+                  display: flex;
+                  align-items: center;
+                  font-size: 1.4rem;
+                  gap: 5px;
+
+                  div span {
+                     display: block;
+                     line-height: 2rem;
+                     font-size: 1.4rem;
+                     font-weight: 400;
+                  }
+
+                  div span:first-child {
+                     font-weight: 600;
+                  }
+               }
+
+               img {
+                  border-radius: 100%;
+               }
+            }
+         }
+      }
+   }
+}

@@ -1,3 +1,17 @@
 a {
    text-decoration: none;
 }
+
+:root {
+   font-size: 62.5%;
+   --bg: #E9F2F9;
+   --bg-secondary: #3A89C9;
+   --black: #000000;
+   --white: #ffffff;
+   --win: #3A89C9;
+   --win-secondary: #D0EAFF;
+   --loser: #EA4141;
+   --loser-secondary: #FBECEA;
+
+   font-family: poppins, 'sans-serif';
+}

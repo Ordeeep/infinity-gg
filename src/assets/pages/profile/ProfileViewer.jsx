@@ -2,7 +2,7 @@ import SearchPlayer from "../../components/searchPlayer";
 import "./ProfileViewer.css";
 function ProfileViewer() {
   return (
-    <>
+    <div className="profileContainer">
       <header className="profileHeader">
         <nav className="profileNav">
           <a href="#" className="profileLogo">
@@ -10,7 +10,7 @@ function ProfileViewer() {
           </a>
 
           <div className="navContainer">
-          <SearchPlayer />
+            <SearchPlayer />
 
             <ul>
               <li>
@@ -33,10 +33,154 @@ function ProfileViewer() {
         </nav>
       </header>
 
-      <main>
-        
+      <main className="profileMain">
+        <div className="profileContainer">
+          <div className="navPlayerData">
+            <nav>
+              <ul>
+                <li>Resumo</li>
+                <li>Campeões</li>
+                <li>
+                  Jogo ao vivo <span>LIVE</span>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div className="playerDataContainer">
+
+            <aside className="playerResumeDataContainer">
+              {/*Parte da imagem e level do player*/}
+              <div className="playerNameContainer">
+                <div className="playerLevelContainer">
+                  <img src="https://fakeimg.pl/90x90?font=bebas" alt="" />
+                  <div>
+                    <span id="playerLevel">526</span>
+                  </div>
+                </div>
+
+                {/*Nome + Level do player junto ao botão de att*/}
+                <div className="playerNameContainertwo">
+                  <div>
+                    <span id="playerName" className="playerName">Nome da conta#0000</span>
+                    <span className="playerOldName">Anterior: <span id="playerOldName">Não sei pingar</span></span>
+                  </div>
+                  <div>
+                    <button
+                      className="profilePlayerButton"
+                      id="profilePlayerButtonAtt"
+                    >
+                      Atualizar
+                    </button>
+                    <button
+                      className="profilePlayerButton"
+                      id="profilePlayerButtonPlus"
+                    >
+                      Ver mais
+                    </button>
+                    <span id="playerProfileLastUpdated">
+                      Ultima vez atualizado: 8 horas.
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/*Parte do elo*/}
+              <div className="playerEloContainer">
+                <div className="soloDuoContainer">
+                  <span>Ranqueada Solo/Duo</span>
+
+                  <div className="soloDuoContainer2">
+
+                    <div>
+                      <img src="https://fakeimg.pl/70x70?font=bebas" alt="elo" />
+                      <div>
+                        <span id="playerEloNameSoloDuo">Desafiante</span>
+                        <span id="playerEloPdlSoloDuo">1200PDL</span>
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        <span id="playerTotalWinsSoloDuo">36V</span>
+                        <span id="playerTotalLosersSoloDuo">00L</span>
+                      </div>
+                      <span id="playerEloPdlSoloDuo">Winrate 50%</span>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div className="soloDuoContainer">
+                  <span>Ranqueada Solo/Duo</span>
+
+                  <div className="soloDuoContainer2">
+
+                    <div>
+                      <img src="https://fakeimg.pl/70x70?font=bebas" alt="elo" />
+                      <div>
+                        <span id="playerEloNameSoloDuo">Desafiante</span>
+                        <span id="playerEloPdlSoloDuo">1200PDL</span>
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        <span id="playerTotalWinsSoloDuo">36V</span>
+                        <span id="playerTotalLosersSoloDuo">00L</span>
+                      </div>
+                      <span id="playerEloPdlSoloDuo">Winrate 50%</span>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+              <div className="playerWinRateChampion">
+                <span>Taxa de vitoria em ranqueadas nos últimos 7 dias</span>
+
+
+                <div className="championsWinRateContainer">
+                  <table>
+                    <tbody>
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Campeão</th>
+                            <th>Taxa de vitoria</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr>
+                            <td>
+                              <img src="https://fakeimg.pl/32x32?font=bebas" alt="elo" />
+                              <span>Amumu</span>
+                            </td>
+
+                            <td>
+                              <div className="championWinRateBarContainer">
+                                <div className="winRateBar">
+                                  <span>18V</span>
+                                </div>
+                                <div className="loserRateBar">
+                                  <span>20L</span>
+                                </div>
+
+                                <span>58%</span>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </aside>
+            <section className="playerHistoryContainer"></section>
+          </div>
+        </div>
       </main>
-    </>
+    </div>
   );
 }
 export default ProfileViewer;
