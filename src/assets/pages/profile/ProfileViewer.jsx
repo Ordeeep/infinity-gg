@@ -1,4 +1,6 @@
 import SearchPlayer from "../../components/searchPlayer";
+import MatchPlayer from "../../components/matchs/matchPlayer";
+
 import "./ProfileViewer.css";
 function ProfileViewer() {
   return (
@@ -196,7 +198,13 @@ function ProfileViewer() {
               </div>
             </aside>
             <section className="playerHistoryContainer">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit exercitationem ducimus distinctio voluptatibus iste animi accusantium atque autem expedita laborum culpa quae officia, iure reprehenderit magnam quam! Voluptate, odio quae.
+              <div className="playerHistoryTopContainer">
+                grafico aqui
+              </div>
+              <div className="playerHistoryMatchsContainer">
+                <MatchPlayer />
+                <MatchPlayer />
+              </div>
             </section>
           </div>
         </div>

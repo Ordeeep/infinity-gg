@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 a {
    text-decoration: none;
 }
@@ -10,6 +12,8 @@ a {
    --white: #ffffff;
    --win: #3A89C9;
    --win-secondary: #D0EAFF;
+   --win-secondary2: #93D0FF;
+
    --loser: #EA4141;
    --loser-secondary: #FBECEA;
 
