@@ -134,7 +134,7 @@
       position: absolute;
       right: 55px;
 
-      table {
+      table tbody {
          display: flex;
          align-items: center;
          font-size: 1.4rem;

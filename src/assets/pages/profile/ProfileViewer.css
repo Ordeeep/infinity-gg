@@ -36,6 +36,7 @@
 
 body {
    background-color: var(--bg);
+
    .profileMain {
       display: flex;
       width: 65vw;
@@ -47,7 +48,7 @@ body {
    .playerResumeDataContainer {
       border-radius: 8px;
    }
- 
+
    .playerDataContainer {
 
       display: flex;
@@ -123,12 +124,17 @@ body {
          }
 
          .playerLevelContainer {
+
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-
             margin-right: 10px;
+
+            img {
+               width: 10rem;
+               height: 10rem;
+            }
 
             div {
                position: absolute;
@@ -214,7 +220,10 @@ body {
                   align-items: center;
                   font-size: 1.4rem;
                   gap: 5px;
-
+                  img{
+                     width: 70px;
+                     height: 70px;
+                  }
                   div span {
                      display: block;
                      line-height: 2rem;
@@ -230,7 +239,16 @@ body {
                div+div span {
                   width: 100%;
                   display: flex;
+                  font-size: 1.2rem;
+                  text-align: end;
                   justify-content: end;
+               }
+
+               .playerEloWinrate {
+                  display: flex;
+                  justify-content: end;
+                  font-size: 1.3rem;
+                  text-align: end;
                }
 
                #playerEloWinRateFlex,
@@ -341,7 +359,8 @@ body {
 
 
    }
-      /*playerHistoryContainer inicio*/
+
+   /*playerHistoryContainer inicio*/
 
    .playerHistoryContainer {
       padding-bottom: 2rem;
@@ -352,7 +371,8 @@ body {
       flex-direction: column;
       gap: 1rem;
       align-items: center;
-      .playerHistoryTopContainer{
+
+      .playerHistoryTopContainer {
          margin-top: 2rem;
          border-radius: 1rem;
          padding: 1rem;
@@ -361,11 +381,28 @@ body {
          border: 2px solid var(--bg-secondary);
       }
 
-      .playerHistoryMatchsContainer{
+      .playerHistoryMatchsContainer {
          width: 95%;
          display: flex;
          flex-direction: column;
          gap: 1.5rem;
       }
+   }
+}
+
+.modalLoading {
+   position: absolute;
+   display: none;
+   justify-content: center;
+   padding-top: 5rem;
+   z-index: 10;
+   height: 89vh;
+   width: 100%;
+   bottom: 0;
+   background-color: rgb(255, 255, 255);
+
+   img {
+      width: 100px;
+      height: 100px;
    }
 }

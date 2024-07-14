@@ -1,8 +1,58 @@
 import SearchPlayer from "../../components/searchPlayer";
 import MatchPlayer from "../../components/matchs/matchPlayer";
+import axios from 'axios';
+import React from "react";
+import { useState } from 'react'
 
 import "./ProfileViewer.css";
+
 function ProfileViewer() {
+  const BASE_URL = 'http://localhost:3333/14.13.1/'
+  const [userData, setUserData] = useState([])
+
+  function handleKeyDown(event) {
+    if (event.key === 'Enter') {
+      let inputValue = event.target.value;
+      inputValue = inputValue.split('#');
+      if (inputValue === '') {
+        console.log('Digite um valor válido');
+        return;
+      } else {
+        requestApi(inputValue);
+      }
+    }
+  };
+
+  async function requestApi(inputValue) {
+    try {
+      //loadingDiv.style.display = 'flex';
+      const response = await axios.get(`http://localhost:3333/user/${inputValue[0]}/${inputValue[1]}`);
+      if (response.status === 200) {
+        //loadingDiv.style.display = 'none';
+        setUserData(response.data)
+      } else {
+        window.alert("Algo deu errado...");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async function requestApiToReload() {
+    try {
+      const response = await axios.get(`http://localhost:3333/user/${userData.gameName}/${userData.tagLine}`)
+      if (response.status === 200) {
+        //loadingDiv.style.display = 'none';
+        setUserData(response.data)
+        //  console.log(userData)
+      } else {
+        window.alert("Algo deu errado...");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
   return (
     <div className="profileContainer">
       <header className="profileHeader">
@@ -10,10 +60,8 @@ function ProfileViewer() {
           <a href="#" className="profileLogo">
             INFINITY.GG
           </a>
-
           <div className="navContainer">
-            <SearchPlayer />
-
+            <SearchPlayer teste={handleKeyDown} />
             <ul>
               <li>
                 <a href="/profile">Inicio</a>
@@ -53,20 +101,24 @@ function ProfileViewer() {
               {/*Parte da imagem e level do player*/}
               <div className="playerNameContainer">
                 <div className="playerLevelContainer">
-                  <img src="https://fakeimg.pl/90x90?font=bebas" alt="" />
+                  <img
+                    src={`http://localhost:3333/14.13.1/playerIcon/${userData.profileIconId}`}
+                    alt="" />
                   <div>
-                    <span id="playerLevel">526</span>
+                    <span id="playerLevel">{userData ? userData.summonerLevel : 'NULL'}</span>
                   </div>
                 </div>
 
                 {/*Nome + Level do player junto ao botão de att*/}
                 <div className="playerNameContainertwo">
                   <div>
-                    <span id="playerName" className="playerName">Nome da conta#0000</span>
-                    <span className="playerOldName">Anterior: <span id="playerOldName">Não sei pingar</span></span>
+                    <span id="playerName" className="playerName">
+                      {userData.gameName ? `${userData.gameName}#${userData.tagLine}` : 'No data'}
+                    </span>
                   </div>
                   <div>
                     <button
+                      onClick={requestApiToReload}
                       className="profilePlayerButton"
                       id="profilePlayerButtonAtt"
                     >
@@ -93,22 +145,20 @@ function ProfileViewer() {
                   <div className="eloContainer2">
 
                     <div>
-                      <img src="https://fakeimg.pl/70x70?font=bebas" alt="elo" />
+                      <img src={userData.ranked ? BASE_URL + "elo/" + userData.ranked.solo_duo.tier : `http://localhost:3333/14.13.1/playerIcon/undefined`} alt="elo" />
                       <div>
-                        <span id="playerEloNameSoloDuo">Desafiante</span>
-                        <span id="playerEloPdlSoloDuo">1200PDL</span>
+                        <span id="playerEloNameSoloDuo">{userData.ranked ? userData.ranked.solo_duo.tier : 'No data tier'}</span>
+                        <span id="playerEloPdlSoloDuo">{userData.ranked ? userData.ranked.solo_duo.pdl + ' Pdl' : 'No data pdl'}</span>
                       </div>
                     </div>
                     <div>
                       <div>
                         <span>
-                          <span id="playerTotalWinsSoloDuo">36</span>V
-                          <span id="playerTotalLosersSoloDuo">00</span>L
+                          <span id="playerTotalWinsSoloDuo">{userData.ranked ? userData.ranked.solo_duo.wins + 'V' : 'No data'} / {userData.ranked ? userData.ranked.solo_duo.losses + 'L' : 'No data'}</span>
                         </span>
                       </div>
-                      <span id="playerEloPdlSoloDuo">Winrate 50%</span>
+                      <span className="playerEloWinrate">Winrate: {userData.ranked ? ((userData.ranked.solo_duo.wins / (userData.ranked.solo_duo.wins + userData.ranked.solo_duo.losses)) * 100).toFixed(0) : 'No data'}%</span>
                     </div>
-
                   </div>
                 </div>
 
@@ -118,20 +168,21 @@ function ProfileViewer() {
                   <div className="eloContainer2">
 
                     <div>
-                      <img src="https://fakeimg.pl/70x70?font=bebas" alt="elo" />
+                      <img
+                        src={userData.ranked ? BASE_URL + "elo/" + userData.ranked.flex.tier : `http://localhost:3333/14.13.1/playerIcon/undefined`}
+                        alt="elo" />
                       <div>
-                        <span id="playerEloNameFlex">Desafiante</span>
-                        <span id="playerEloPdlFlex">1200PDL</span>
+                        <span id="playerEloNameFlex">{userData.ranked ? userData.ranked.flex.tier : 'No data tier'}</span>
+                        <span id="playerEloPdlFlex">{userData.ranked ? userData.ranked.flex.pdl + ' Pdl' : 'No data pdl'}</span>
                       </div>
                     </div>
                     <div>
                       <div>
                         <span>
-                          <span id="playerTotalWinsFlex">36</span>V
-                          <span id="playerTotalLosersFlex">00</span>L
+                          <span id="playerTotalWinsSoloDuo">{userData.ranked ? userData.ranked.flex.wins + 'V' : 'No data'} / {userData.ranked ? userData.ranked.flex.losses + 'L' : 'No data'}</span>
                         </span>
                       </div>
-                      <span id="playerEloWinRateFlex">Winrate 50%</span>
+                      <span className="playerEloWinRate">Winrate: {userData.ranked ? ((userData.ranked.flex.wins / (userData.ranked.flex.wins + userData.ranked.flex.losses)) * 100).toFixed(0) : 'No data'}%</span>
                     </div>
 
                   </div>
@@ -202,14 +253,17 @@ function ProfileViewer() {
                 grafico aqui
               </div>
               <div className="playerHistoryMatchsContainer">
-                <MatchPlayer />
-                <MatchPlayer />
+                <MatchPlayer matchData={userData} />
+
               </div>
             </section>
           </div>
         </div>
-
       </main>
+      <div className='modalLoading' id="modalLoading">
+        <img src="../../../../gradient-5812_256.gif" alt="" />
+      </div>
+
     </div>
   );
 }
