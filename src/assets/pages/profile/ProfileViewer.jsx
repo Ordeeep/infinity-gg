@@ -9,6 +9,8 @@ import "./ProfileViewer.css";
 function ProfileViewer() {
   const BASE_URL = 'http://localhost:3333/14.13.1/'
   const [userData, setUserData] = useState([])
+  const loadingDiv = document.getElementById('modalLoading')
+
 
   function handleKeyDown(event) {
     if (event.key === 'Enter') {
@@ -25,10 +27,12 @@ function ProfileViewer() {
 
   async function requestApi(inputValue) {
     try {
-      //loadingDiv.style.display = 'flex';
-      const response = await axios.get(`http://localhost:3333/user/${inputValue[0]}/${inputValue[1]}`);
+      loadingDiv.style.display = 'flex';
+      const regionValue = document.getElementById('region').value
+      const response = await axios.get(`http://localhost:3333/user/${inputValue[0]}/${inputValue[1]}/${regionValue}`);
       if (response.status === 200) {
-        //loadingDiv.style.display = 'none';
+        console.log(response.data)
+        loadingDiv.style.display = 'none';
         setUserData(response.data)
       } else {
         window.alert("Algo deu errado...");
@@ -38,12 +42,13 @@ function ProfileViewer() {
     }
   }
   async function requestApiToReload() {
+    loadingDiv.style.display = 'flex'
     try {
-      const response = await axios.get(`http://localhost:3333/user/${userData.gameName}/${userData.tagLine}`)
+      const regionValue = document.getElementById('region').value
+      const response = await axios.get(`http://localhost:3333/user/${userData.gameName}/${userData.tagLine}/${regionValue}`)
       if (response.status === 200) {
-        //loadingDiv.style.display = 'none';
+        loadingDiv.style.display = 'none';
         setUserData(response.data)
-        //  console.log(userData)
       } else {
         window.alert("Algo deu errado...");
       }
@@ -253,8 +258,9 @@ function ProfileViewer() {
                 grafico aqui
               </div>
               <div className="playerHistoryMatchsContainer">
-                <MatchPlayer matchData={userData} />
-
+                {userData.history ? userData.history.matchs.map((item) => (
+                  <MatchPlayer matchData={userData} />
+                )) : 'Eu não estou aqui'}
               </div>
             </section>
           </div>

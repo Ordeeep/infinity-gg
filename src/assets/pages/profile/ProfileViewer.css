@@ -138,11 +138,14 @@ body {
 
             div {
                position: absolute;
-               bottom: -11px;
+               bottom: -12px;
                font-size: 1.4rem;
-
+               display: flex;
+               justify-content: center;
+               align-items: center;
                background-color: var(--bg-secondary);
-               padding: 0.2rem 0.8rem;
+               width: 4.5rem;
+               height: 2.4rem;
                border-radius: 8px;
                color: var(--white);
                font-weight: 500;
