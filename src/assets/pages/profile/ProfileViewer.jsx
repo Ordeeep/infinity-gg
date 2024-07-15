@@ -9,7 +9,7 @@ import "./ProfileViewer.css";
 function ProfileViewer() {
   const BASE_URL = 'http://localhost:3333/14.13.1/'
   const [userData, setUserData] = useState([])
-  const loadingDiv = document.getElementById('modalLoading')
+  const [loading, setLoading] = useState(false)
 
 
   function handleKeyDown(event) {
@@ -27,38 +27,43 @@ function ProfileViewer() {
 
   async function requestApi(inputValue) {
     try {
-      loadingDiv.style.display = 'flex';
+      setLoading(true)
       const regionValue = document.getElementById('region').value
       const response = await axios.get(`http://localhost:3333/user/${inputValue[0]}/${inputValue[1]}/${regionValue}`);
       if (response.status === 200) {
         console.log(response.data)
-        loadingDiv.style.display = 'none';
+        setLoading(false);
         setUserData(response.data)
       } else {
         window.alert("Algo deu errado...");
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   }
   async function requestApiToReload() {
-    loadingDiv.style.display = 'flex'
     try {
+      setLoading(true)
       const regionValue = document.getElementById('region').value
       const response = await axios.get(`http://localhost:3333/user/${userData.gameName}/${userData.tagLine}/${regionValue}`)
       if (response.status === 200) {
-        loadingDiv.style.display = 'none';
+        setLoading(false);
         setUserData(response.data)
       } else {
+        setLoading(false);
         window.alert("Algo deu errado...");
       }
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   }
 
 
   return (
+
     <div className="profileContainer">
       <header className="profileHeader">
         <nav className="profileNav">
@@ -258,19 +263,27 @@ function ProfileViewer() {
                 grafico aqui
               </div>
               <div className="playerHistoryMatchsContainer">
-                {userData.history ? userData.history.matchs.map((item) => (
-                  <MatchPlayer matchData={userData} />
-                )) : 'Eu não estou aqui'}
+                {userData.history ? (
+                  userData.history.matchs.map((item, index) => (
+                    <MatchPlayer key={index} matchData={item} />
+                  ))
+                ) : (
+                  'Eu não estou aqui'
+                )}
               </div>
+
             </section>
           </div>
         </div>
       </main>
-      <div className='modalLoading' id="modalLoading">
-        <img src="../../../../gradient-5812_256.gif" alt="" />
-      </div>
+      {loading && (
+        <div className='modalLoading' id="modalLoading">
+          <img src="../../../../gradient-5812_256.gif" alt="" />
+        </div>
+      )}
 
     </div>
   );
+
 }
 export default ProfileViewer;

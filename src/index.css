@@ -13,8 +13,9 @@ a {
    --win: #3A89C9;
    --win-secondary: #D0EAFF;
    --win-secondary2: #93D0FF;
-   --loser: #EA4141;
-   --loser-secondary: #FBECEA;
+   --loser: #ea4141;
+   --loser2: #FF7C7C;
+   --bg-loser: #FBECEA;
 
    font-family: poppins, 'sans-serif';
 }

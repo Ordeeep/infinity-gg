@@ -2,12 +2,7 @@ import React from 'react';
 import './searchPlayer.css';
 import { Component } from 'react';
 class SearchPlayer extends Component {
-    //const loadingDiv = document.getElementById('modalLoading');
-    /*
-    if (loadingDiv) {
-        //loadingDiv.style.display = 'none';
-    }
-    */
+    
     render() {
         return(
             <div className='containerSearchPlayer'>

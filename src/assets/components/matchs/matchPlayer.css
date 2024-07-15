@@ -3,7 +3,7 @@
    height: 11rem;
    border-radius: 1rem;
    position: relative;
-   background-color: var(--win-secondary);
+   /* background-color: var(--win-secondary); */
    display: flex;
 
    .playerHistoryMatchContainer {
@@ -22,14 +22,12 @@
 
          .matchQueueType {
             font-size: 1.6rem;
-            color: var(--bg-secondary);
             font-weight: 700;
          }
 
          .matchWinOrLoser {
             font-size: 1.3rem;
             line-height: 10px;
-            color: var(--bg-secondary);
             font-weight: 600;
 
             margin-bottom: 0.3rem;
@@ -132,23 +130,30 @@
    .matchPlayersNamesContainer {
       display: flex;
       position: absolute;
-      right: 55px;
+      right: 45px;
+      padding: 0.6rem 0;
 
       table tbody {
          display: flex;
-         align-items: center;
-         font-size: 1.4rem;
-         justify-content: center;
-         gap: 10px;
+         font-size: 1.2rem;
+         gap: 1rem;
 
          a {
             color: var(--black);
             font-weight: 300;
+            max-width: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-wrap: nowrap;
          }
 
          img {
             border-radius: 0.4rem;
             margin-right: 5px;
+         }
+
+         tr {
+            width: 100px;
          }
 
          ul {
@@ -171,7 +176,6 @@
    width: 1rem;
    height: 100%;
    border-radius: 1rem 0 0 1rem;
-   background-color: var(--bg-secondary);
    margin-right: 0.7rem;
 }
 
@@ -184,13 +188,42 @@
    align-items: center;
    font-size: 1.8rem;
    font-weight: 600;
-   color: var(--bg-secondary);
    content: "V";
    padding-bottom: 5px;
    width: 4rem;
    height: 100%;
    border-radius: 0 1rem 1rem 0;
    right: 0;
-   background-color: var(--win-secondary2);
    cursor: pointer;
+}
+
+.playerHistoryMatchQuad.true::before{
+   background-color: var(--bg-secondary);
+}
+.playerHistoryMatchQuad.true::after{
+   background-color: var(--win-secondary2);
+   color: var(--bg-secondary);
+}
+.true{
+   background-color: var(--win-secondary);
+   .matchQueueType,
+   .matchWinOrLoser {
+      color: var(--bg-secondary);
+   }
+}
+.playerHistoryMatchQuad.false::before{
+   background-color: var(--loser);
+}
+.playerHistoryMatchQuad.false::after{
+   background-color: var(--loser2);
+   color: var(--loser);
+}
+.false {
+   color: var(--black);
+   background-color: var(--bg-loser);
+
+   .matchQueueType,
+   .matchWinOrLoser {
+      color: var(--loser);
+   }
 }

@@ -1,20 +1,123 @@
 import './matchPlayer.css'
-import { Component, useState } from 'react';
+import { Component } from 'react';
+
 class matchPlayer extends Component {
 
    render() {
-      // const [quad, setQuad] = useState([])
+      let count = 0
+      const { matchData } = this.props;
 
+      console.log(matchData)
+
+      let playerInMatchData = {
+
+         bluseSide: {
+            0: {
+               summonerName: '',
+               riotIdGameName: '',
+               riotIdTagline: '',
+               win: false,
+               championId: 0
+            },
+            1: {
+               summonerName: '',
+               riotIdGameName: '',
+               riotIdTagline: '',
+               win: false,
+               championId: 0
+            },
+            2: {
+               summonerName: '',
+               riotIdGameName: '',
+               riotIdTagline: '',
+               win: false,
+               championId: 0
+            },
+            3: {
+               summonerName: '',
+               riotIdGameName: '',
+               riotIdTagline: '',
+               win: false,
+               championId: 0
+            },
+            4: {
+               summonerName: '',
+               riotIdGameName: '',
+               riotIdTagline: '',
+               win: false,
+               championId: 0
+            }
+         },
+         redSide: {
+            5: {
+               summonerName: '',
+               riotIdGameName: '',
+               riotIdTagline: '',
+               win: false,
+               championId: 0
+            },
+            6: {
+               summonerName: '',
+               riotIdGameName: '',
+               riotIdTagline: '',
+               win: false,
+               championId: 0
+            },
+            7: {
+               summonerName: '',
+               riotIdGameName: '',
+               riotIdTagline: '',
+               win: false,
+               championId: 0
+            },
+            8: {
+               summonerName: '',
+               riotIdGameName: '',
+               riotIdTagline: '',
+               win: false,
+               championId: 0
+            },
+            9: {
+               summonerName: '',
+               riotIdGameName: '',
+               riotIdTagline: '',
+               win: false,
+               championId: 0
+            }
+         }
+      }
+
+      //console.log(playerInMatchData)
+      matchData.info.participants.map((item) => {
+         if (item.teamId == 100) {
+            playerInMatchData.bluseSide[count] = {
+               summonerName: item.summonerName,
+               riotIdGameName: item.riotIdGameName,
+               riotIdTagline: item.riotIdTagline,
+               win: item.win,
+               championId: item.championId
+            }
+         } else {
+            playerInMatchData.redSide[count] = {
+               summonerName: item.summonerName,
+               riotIdGameName: item.riotIdGameName,
+               riotIdTagline: item.riotIdTagline,
+               win: item.win,
+               championId: item.championId
+            }
+         }
+         count = count + 1
+      })
       return (
 
          <>
-            <div className="playerHistoryMatchQuad">
+            <div className={`playerHistoryMatchQuad + ${matchData.info.win}`}>
                <div className='playerHistoryMatchContainer'>
                   <div className='matchQueueDataContainer'>
                      <div>
-                        <span id='matchQueueType' className='matchQueueType'>Ranqueada Solo</span>
-                        <span id='matchWinOrLoser' className='matchWinOrLoser'>{/*matchData ? matchData.history.matchs[0] :*/ 'Error'}</span>
-                        <span id='matchDataOld' className='matchDataOld'>21 horas atras</span>
+                        <span className='matchQueueType'>{matchData.info.queueId}</span>
+                        <span className='matchWinOrLoser'>{matchData.info.win ? 'Vitória' : 'Derrota'}</span>
+                        <span className='matchDataOld'>21 horas atras</span>
                      </div>
                      <div>
                         <span className='matchTotalMinutes' id='matchTotalMinutes'>Duração 32:21M</span>
@@ -92,52 +195,49 @@ class matchPlayer extends Component {
                               <ul>
                                  <li>
                                     <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">Player 1</a>
+                                    <a href="#">{playerInMatchData.bluseSide[0].riotIdGameName}</a>
                                  </li>
                                  <li>
                                     <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">Player 1</a>
+                                    <a href="#">{playerInMatchData.bluseSide[1].riotIdGameName}</a>
                                  </li>
                                  <li>
                                     <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">Player 1</a>
+                                    <a href="#">{playerInMatchData.bluseSide[2].riotIdGameName}</a>
                                  </li>
                                  <li>
                                     <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">Player 1</a>
+                                    <a href="#">{playerInMatchData.bluseSide[3].riotIdGameName}</a>
                                  </li>
                                  <li>
                                     <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">Player 1</a>
+                                    <a href="#">{playerInMatchData.bluseSide[4].riotIdGameName}</a>
                                  </li>
                               </ul>
                            </td>
-                        </tr>
-                        <tr>
-                           <td>Vs</td>
                         </tr>
                         <tr>
                            <td>
                               <ul>
                                  <li>
                                     <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">Player 1</a>
+                                    <a href="#">{playerInMatchData.redSide[5].riotIdGameName}</a>
                                  </li>
                                  <li>
                                     <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">Player 1</a>
+                                    <a href="#">{playerInMatchData.redSide[6].riotIdGameName}</a>
                                  </li>
                                  <li>
                                     <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">Player 1</a>
+                                    <a href="#">{playerInMatchData.redSide[7].riotIdGameName}</a>
                                  </li>
                                  <li>
                                     <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">Player 1</a>
+                                    <a href="#">{playerInMatchData.redSide[8].riotIdGameName}</a>
                                  </li>
                                  <li>
                                     <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">Player 1</a>
+                                    <a href="#">{playerInMatchData.redSide[9].riotIdGameName}</a>
                                  </li>
                               </ul>
                            </td>
