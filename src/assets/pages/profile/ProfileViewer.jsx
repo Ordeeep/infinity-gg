@@ -7,7 +7,7 @@ import { useState } from 'react'
 import "./ProfileViewer.css";
 
 function ProfileViewer() {
-  const BASE_URL = 'http://localhost:3333/14.13.1/'
+  const BASE_URL = 'http://localhost:3333/'
   const [userData, setUserData] = useState([])
   const [loading, setLoading] = useState(false)
 
@@ -29,7 +29,7 @@ function ProfileViewer() {
     try {
       setLoading(true)
       const regionValue = document.getElementById('region').value
-      const response = await axios.get(`http://localhost:3333/user/${inputValue[0]}/${inputValue[1]}/${regionValue}`);
+      const response = await axios.get(`${BASE_URL}user/${inputValue[0]}/${inputValue[1]}/${regionValue}`);
       if (response.status === 200) {
         console.log(response.data)
         setLoading(false);
@@ -47,7 +47,7 @@ function ProfileViewer() {
     try {
       setLoading(true)
       const regionValue = document.getElementById('region').value
-      const response = await axios.get(`http://localhost:3333/user/${userData.gameName}/${userData.tagLine}/${regionValue}`)
+      const response = await axios.get(`${BASE_URL}user/${userData.gameName}/${userData.tagLine}/${regionValue}`)
       if (response.status === 200) {
         setLoading(false);
         setUserData(response.data)
@@ -112,7 +112,7 @@ function ProfileViewer() {
               <div className="playerNameContainer">
                 <div className="playerLevelContainer">
                   <img
-                    src={`http://localhost:3333/14.13.1/playerIcon/${userData.profileIconId}`}
+                    src={`${BASE_URL}playerIcon/${userData.profileIconId}`}
                     alt="" />
                   <div>
                     <span id="playerLevel">{userData ? userData.summonerLevel : 'NULL'}</span>
@@ -155,7 +155,7 @@ function ProfileViewer() {
                   <div className="eloContainer2">
 
                     <div>
-                      <img src={userData.ranked ? BASE_URL + "elo/" + userData.ranked.solo_duo.tier : `http://localhost:3333/14.13.1/playerIcon/undefined`} alt="elo" />
+                      <img src={userData.ranked ? BASE_URL + "elo/" + userData.ranked.solo_duo.tier : `${BASE_URL}playerIcon/undefined`} alt="elo" />
                       <div>
                         <span id="playerEloNameSoloDuo">{userData.ranked ? userData.ranked.solo_duo.tier : 'No data tier'}</span>
                         <span id="playerEloPdlSoloDuo">{userData.ranked ? userData.ranked.solo_duo.pdl + ' Pdl' : 'No data pdl'}</span>
@@ -179,7 +179,7 @@ function ProfileViewer() {
 
                     <div>
                       <img
-                        src={userData.ranked ? BASE_URL + "elo/" + userData.ranked.flex.tier : `http://localhost:3333/14.13.1/playerIcon/undefined`}
+                        src={userData.ranked ? BASE_URL + "elo/" + userData.ranked.flex.tier : `${BASE_URL}/playerIcon/undefined`}
                         alt="elo" />
                       <div>
                         <span id="playerEloNameFlex">{userData.ranked ? userData.ranked.flex.tier : 'No data tier'}</span>
