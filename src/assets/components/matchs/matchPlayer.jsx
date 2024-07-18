@@ -1,51 +1,51 @@
 import './matchPlayer.css'
-import { Component } from 'react';
+import react, { Component } from 'react';
 
 class matchPlayer extends Component {
 
    render() {
-      let count = 0
-      const { matchData } = this.props;
 
-      console.log(matchData)
+      const { matchData, userPUUID, BASE_URL, getUserMatchData } = this.props;
+      console.log(getUserMatchData)
+
+      let playerSearchData = null
 
       let playerInMatchData = {
-
-         bluseSide: {
+         blueSide: {
             0: {
                summonerName: '',
                riotIdGameName: '',
                riotIdTagline: '',
                win: false,
-               championId: 0
+               championName: 0
             },
             1: {
                summonerName: '',
                riotIdGameName: '',
                riotIdTagline: '',
                win: false,
-               championId: 0
+               championName: 0
             },
             2: {
                summonerName: '',
                riotIdGameName: '',
                riotIdTagline: '',
                win: false,
-               championId: 0
+               championName: 0
             },
             3: {
                summonerName: '',
                riotIdGameName: '',
                riotIdTagline: '',
                win: false,
-               championId: 0
+               championName: 0
             },
             4: {
                summonerName: '',
                riotIdGameName: '',
                riotIdTagline: '',
                win: false,
-               championId: 0
+               championName: 0
             }
          },
          redSide: {
@@ -54,48 +54,77 @@ class matchPlayer extends Component {
                riotIdGameName: '',
                riotIdTagline: '',
                win: false,
-               championId: 0
+               championName: 0
             },
             6: {
                summonerName: '',
                riotIdGameName: '',
                riotIdTagline: '',
                win: false,
-               championId: 0
+               championName: 0
             },
             7: {
                summonerName: '',
                riotIdGameName: '',
                riotIdTagline: '',
                win: false,
-               championId: 0
+               championName: 0
             },
             8: {
                summonerName: '',
                riotIdGameName: '',
                riotIdTagline: '',
                win: false,
-               championId: 0
+               championName: 0
             },
             9: {
                summonerName: '',
                riotIdGameName: '',
                riotIdTagline: '',
                win: false,
-               championId: 0
+               championName: 0
             }
          }
       }
+      let count = 0
 
-      //console.log(playerInMatchData)
       matchData.info.participants.map((item) => {
+         if (item.puuid === userPUUID) {
+            let playerSearchData = {
+               championName: item.championName,
+               role: item.role,
+               playerKDA: {
+                  kills: item.kills,
+                  deaths: item.deaths,
+                  assists: item.assists,
+               },
+               playerTalents: {
+                  id_0: item.summoner1Id,
+                  id_1: item.summoner2Id
+               },
+               playerRunes: {
+                  id_0: 0,
+                  id_1: 0
+               },
+               playerBuild: {
+                  item_0: item.item0,
+                  item_1: item.item1,
+                  item_2: item.item2,
+                  item_3: item.item3,
+                  item_4: item.item4,
+                  item_5: item.item5,
+                  item_6: item.item6
+               },
+            }
+            console.log(playerSearchData)
+         }
          if (item.teamId == 100) {
-            playerInMatchData.bluseSide[count] = {
+            playerInMatchData.blueSide[count] = {
                summonerName: item.summonerName,
                riotIdGameName: item.riotIdGameName,
                riotIdTagline: item.riotIdTagline,
                win: item.win,
-               championId: item.championId
+               championName: item.championName
             }
          } else {
             playerInMatchData.redSide[count] = {
@@ -103,9 +132,11 @@ class matchPlayer extends Component {
                riotIdGameName: item.riotIdGameName,
                riotIdTagline: item.riotIdTagline,
                win: item.win,
-               championId: item.championId
+               championName: item.championName
             }
          }
+
+
          count = count + 1
       })
       return (
@@ -125,12 +156,13 @@ class matchPlayer extends Component {
                      </div>
                   </div>
                </div>
+               <p>{playerSearchData ? 'Oláa': 'nãooo'}</p>
                <div className='matchChampionBuildContainer'>
                   <div>
                      <div className='championTalents'>
                         <img
                            id='championIcon'
-                           src="https://fakeimg.pl/60x60?font=bebas"
+                          /*  src={playerSearchData ? `${BASE_URL}/championIcon/${playerSearchData.championName}` : 'hi'} */
                            alt="icone do champion" />
                         <div>
                            <img
@@ -195,23 +227,23 @@ class matchPlayer extends Component {
                               <ul>
                                  <li>
                                     <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">{playerInMatchData.bluseSide[0].riotIdGameName}</a>
+                                    <a href="#">{playerInMatchData.blueSide[0].riotIdGameName}</a>
                                  </li>
                                  <li>
                                     <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">{playerInMatchData.bluseSide[1].riotIdGameName}</a>
+                                    <a href="#">{playerInMatchData.blueSide[1].riotIdGameName}</a>
                                  </li>
                                  <li>
                                     <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">{playerInMatchData.bluseSide[2].riotIdGameName}</a>
+                                    <a href="#">{playerInMatchData.blueSide[2].riotIdGameName}</a>
                                  </li>
                                  <li>
                                     <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">{playerInMatchData.bluseSide[3].riotIdGameName}</a>
+                                    <a href="#">{playerInMatchData.blueSide[3].riotIdGameName}</a>
                                  </li>
                                  <li>
                                     <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">{playerInMatchData.bluseSide[4].riotIdGameName}</a>
+                                    <a href="#">{playerInMatchData.blueSide[4].riotIdGameName}</a>
                                  </li>
                               </ul>
                            </td>

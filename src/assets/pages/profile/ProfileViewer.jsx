@@ -61,7 +61,9 @@ function ProfileViewer() {
     }
   }
 
-
+  function getUserMatchData(match){
+    return 'penis'
+  }
   return (
 
     <div className="profileContainer">
@@ -155,7 +157,7 @@ function ProfileViewer() {
                   <div className="eloContainer2">
 
                     <div>
-                      <img src={userData.ranked ? BASE_URL + "elo/" + userData.ranked.solo_duo.tier : `${BASE_URL}playerIcon/undefined`} alt="elo" />
+                      <img src={userData.ranked ? BASE_URL + "elo/" + userData.ranked.solo_duo.tier : `${BASE_URL}elo/undefined`} alt="elo" />
                       <div>
                         <span id="playerEloNameSoloDuo">{userData.ranked ? userData.ranked.solo_duo.tier : 'No data tier'}</span>
                         <span id="playerEloPdlSoloDuo">{userData.ranked ? userData.ranked.solo_duo.pdl + ' Pdl' : 'No data pdl'}</span>
@@ -179,7 +181,7 @@ function ProfileViewer() {
 
                     <div>
                       <img
-                        src={userData.ranked ? BASE_URL + "elo/" + userData.ranked.flex.tier : `${BASE_URL}/playerIcon/undefined`}
+                        src={userData.ranked ? BASE_URL + "elo/" + userData.ranked.flex.tier : `${BASE_URL}elo/undefined`}
                         alt="elo" />
                       <div>
                         <span id="playerEloNameFlex">{userData.ranked ? userData.ranked.flex.tier : 'No data tier'}</span>
@@ -265,7 +267,7 @@ function ProfileViewer() {
               <div className="playerHistoryMatchsContainer">
                 {userData.history ? (
                   userData.history.matchs.map((item, index) => (
-                    <MatchPlayer key={index} matchData={item} />
+                    <MatchPlayer key={index} matchData={item} userPUUID={userData.puuid} BASE_URL={BASE_URL} getUserMatchData={getUserMatchData(item)} />
                   ))
                 ) : (
                   'Eu não estou aqui'
