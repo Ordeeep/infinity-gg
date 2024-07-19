@@ -50,7 +50,8 @@ body {
    }
 
    .playerDataContainer {
-
+      overflow: auto;
+      position: relative;
       display: flex;
       gap: 10px;
       justify-content: space-between;
@@ -111,7 +112,10 @@ body {
    /*Nav player data*/
 
    .playerResumeDataContainer {
-      max-width: 26%;
+      /* Safari */
+
+      max-width: 26.5%;
+      margin-bottom: 20px;
       height: 70rem;
       background-color: var(--white);
 
@@ -223,10 +227,12 @@ body {
                   align-items: center;
                   font-size: 1.4rem;
                   gap: 5px;
-                  img{
+
+                  img {
                      width: 70px;
                      height: 70px;
                   }
+
                   div span {
                      display: block;
                      line-height: 2rem;
@@ -366,6 +372,9 @@ body {
    /*playerHistoryContainer inicio*/
 
    .playerHistoryContainer {
+      position: sticky;
+      overflow: auto;
+      height: 700px;
       padding-bottom: 2rem;
       width: 72%;
       border-radius: 8px;

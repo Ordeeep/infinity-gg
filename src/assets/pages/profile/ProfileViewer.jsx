@@ -11,7 +11,6 @@ function ProfileViewer() {
   const [userData, setUserData] = useState([])
   const [loading, setLoading] = useState(false)
 
-
   function handleKeyDown(event) {
     if (event.key === 'Enter') {
       let inputValue = event.target.value;
@@ -31,7 +30,6 @@ function ProfileViewer() {
       const regionValue = document.getElementById('region').value
       const response = await axios.get(`${BASE_URL}user/${inputValue[0]}/${inputValue[1]}/${regionValue}`);
       if (response.status === 200) {
-        console.log(response.data)
         setLoading(false);
         setUserData(response.data)
       } else {
@@ -61,8 +59,138 @@ function ProfileViewer() {
     }
   }
 
-  function getUserMatchData(match){
-    return 'penis'
+  function getUserMatchData(match) {
+
+    let playerSearchData = null
+
+    let playerInMatchData = {
+      blueSide: {
+        0: {
+          summonerName: '',
+          riotIdGameName: '',
+          riotIdTagline: '',
+          win: false,
+          championName: 0
+        },
+        1: {
+          summonerName: '',
+          riotIdGameName: '',
+          riotIdTagline: '',
+          win: false,
+          championName: 0
+        },
+        2: {
+          summonerName: '',
+          riotIdGameName: '',
+          riotIdTagline: '',
+          win: false,
+          championName: 0
+        },
+        3: {
+          summonerName: '',
+          riotIdGameName: '',
+          riotIdTagline: '',
+          win: false,
+          championName: 0
+        },
+        4: {
+          summonerName: '',
+          riotIdGameName: '',
+          riotIdTagline: '',
+          win: false,
+          championName: 0
+        }
+      },
+      redSide: {
+        5: {
+          summonerName: '',
+          riotIdGameName: '',
+          riotIdTagline: '',
+          win: false,
+          championName: 0
+        },
+        6: {
+          summonerName: '',
+          riotIdGameName: '',
+          riotIdTagline: '',
+          win: false,
+          championName: 0
+        },
+        7: {
+          summonerName: '',
+          riotIdGameName: '',
+          riotIdTagline: '',
+          win: false,
+          championName: 0
+        },
+        8: {
+          summonerName: '',
+          riotIdGameName: '',
+          riotIdTagline: '',
+          win: false,
+          championName: 0
+        },
+        9: {
+          summonerName: '',
+          riotIdGameName: '',
+          riotIdTagline: '',
+          win: false,
+          championName: 0
+        }
+      }
+    }
+    let count = 0
+
+    match.info.participants.map((item) => {
+      if (item.puuid === userData.puuid) {
+        playerSearchData = {
+          championName: item.championName,
+          role: item.role,
+          playerKDA: {
+            kills: item.kills,
+            deaths: item.deaths,
+            assists: item.assists,
+          },
+          playerTalents: {
+            id_0: item.summoner1Id,
+            id_1: item.summoner2Id
+          },
+          playerRunes: {
+            id_0: 0,
+            id_1: 0
+          },
+          playerBuild: {
+            item_0: item.item0,
+            item_1: item.item1,
+            item_2: item.item2,
+            item_3: item.item3,
+            item_4: item.item4,
+            item_5: item.item5,
+            item_6: item.item6
+          },
+        }
+      }
+      if (item.teamId == 100) {
+        playerInMatchData.blueSide[count] = {
+          summonerName: item.summonerName,
+          riotIdGameName: item.riotIdGameName,
+          riotIdTagline: item.riotIdTagline,
+          win: item.win,
+          championName: item.championName
+        }
+      } else {
+        playerInMatchData.redSide[count] = {
+          summonerName: item.summonerName,
+          riotIdGameName: item.riotIdGameName,
+          riotIdTagline: item.riotIdTagline,
+          win: item.win,
+          championName: item.championName
+        }
+      }
+      count = count + 1
+    })
+
+    return { playerSearchData, playerInMatchData }
   }
   return (
 
@@ -166,10 +294,19 @@ function ProfileViewer() {
                     <div>
                       <div>
                         <span>
-                          <span id="playerTotalWinsSoloDuo">{userData.ranked ? userData.ranked.solo_duo.wins + 'V' : 'No data'} / {userData.ranked ? userData.ranked.solo_duo.losses + 'L' : 'No data'}</span>
+                          <span id="playerTotalWinsSoloDuo">{userData.ranked ? userData.ranked.solo_duo.wins + 'V' : '0V'} / {userData.ranked ? userData.ranked.solo_duo.losses + 'L' : '0L'}</span>
                         </span>
                       </div>
-                      <span className="playerEloWinrate">Winrate: {userData.ranked ? ((userData.ranked.solo_duo.wins / (userData.ranked.solo_duo.wins + userData.ranked.solo_duo.losses)) * 100).toFixed(0) : 'No data'}%</span>
+                      <span className="playerEloWinRate">
+                        Winrate: {
+                          userData.ranked ?
+                            (() => {
+                              const winRate = (userData.ranked.solo_duo.wins / (userData.ranked.solo_duo.wins + userData.ranked.solo_duo.losses)) * 100;
+                              return isNaN(winRate) ? 'No data' : winRate.toFixed(0);
+                            })()
+                            : '0'
+                        }%
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -191,10 +328,19 @@ function ProfileViewer() {
                     <div>
                       <div>
                         <span>
-                          <span id="playerTotalWinsSoloDuo">{userData.ranked ? userData.ranked.flex.wins + 'V' : 'No data'} / {userData.ranked ? userData.ranked.flex.losses + 'L' : 'No data'}</span>
+                          <span id="playerTotalWinsSoloDuo">{userData.ranked ? userData.ranked.flex.wins + 'V' : '0V'} / {userData.ranked ? userData.ranked.flex.losses + 'L' : '0L'}</span>
                         </span>
                       </div>
-                      <span className="playerEloWinRate">Winrate: {userData.ranked ? ((userData.ranked.flex.wins / (userData.ranked.flex.wins + userData.ranked.flex.losses)) * 100).toFixed(0) : 'No data'}%</span>
+                      <span className="playerEloWinRate">
+                        Winrate: {
+                          userData.ranked ?
+                            (() => {
+                              const winRate = (userData.ranked.flex.wins / (userData.ranked.flex.wins + userData.ranked.flex.losses)) * 100;
+                              return isNaN(winRate) ? 'No data' : winRate.toFixed(0);
+                            })()
+                            : '0'
+                        }%
+                      </span>
                     </div>
 
                   </div>

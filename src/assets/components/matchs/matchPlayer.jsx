@@ -6,143 +6,13 @@ class matchPlayer extends Component {
    render() {
 
       const { matchData, userPUUID, BASE_URL, getUserMatchData } = this.props;
-      console.log(getUserMatchData)
-
-      let playerSearchData = null
-
-      let playerInMatchData = {
-         blueSide: {
-            0: {
-               summonerName: '',
-               riotIdGameName: '',
-               riotIdTagline: '',
-               win: false,
-               championName: 0
-            },
-            1: {
-               summonerName: '',
-               riotIdGameName: '',
-               riotIdTagline: '',
-               win: false,
-               championName: 0
-            },
-            2: {
-               summonerName: '',
-               riotIdGameName: '',
-               riotIdTagline: '',
-               win: false,
-               championName: 0
-            },
-            3: {
-               summonerName: '',
-               riotIdGameName: '',
-               riotIdTagline: '',
-               win: false,
-               championName: 0
-            },
-            4: {
-               summonerName: '',
-               riotIdGameName: '',
-               riotIdTagline: '',
-               win: false,
-               championName: 0
-            }
-         },
-         redSide: {
-            5: {
-               summonerName: '',
-               riotIdGameName: '',
-               riotIdTagline: '',
-               win: false,
-               championName: 0
-            },
-            6: {
-               summonerName: '',
-               riotIdGameName: '',
-               riotIdTagline: '',
-               win: false,
-               championName: 0
-            },
-            7: {
-               summonerName: '',
-               riotIdGameName: '',
-               riotIdTagline: '',
-               win: false,
-               championName: 0
-            },
-            8: {
-               summonerName: '',
-               riotIdGameName: '',
-               riotIdTagline: '',
-               win: false,
-               championName: 0
-            },
-            9: {
-               summonerName: '',
-               riotIdGameName: '',
-               riotIdTagline: '',
-               win: false,
-               championName: 0
-            }
-         }
-      }
-      let count = 0
-
-      matchData.info.participants.map((item) => {
-         if (item.puuid === userPUUID) {
-            let playerSearchData = {
-               championName: item.championName,
-               role: item.role,
-               playerKDA: {
-                  kills: item.kills,
-                  deaths: item.deaths,
-                  assists: item.assists,
-               },
-               playerTalents: {
-                  id_0: item.summoner1Id,
-                  id_1: item.summoner2Id
-               },
-               playerRunes: {
-                  id_0: 0,
-                  id_1: 0
-               },
-               playerBuild: {
-                  item_0: item.item0,
-                  item_1: item.item1,
-                  item_2: item.item2,
-                  item_3: item.item3,
-                  item_4: item.item4,
-                  item_5: item.item5,
-                  item_6: item.item6
-               },
-            }
-            console.log(playerSearchData)
-         }
-         if (item.teamId == 100) {
-            playerInMatchData.blueSide[count] = {
-               summonerName: item.summonerName,
-               riotIdGameName: item.riotIdGameName,
-               riotIdTagline: item.riotIdTagline,
-               win: item.win,
-               championName: item.championName
-            }
-         } else {
-            playerInMatchData.redSide[count] = {
-               summonerName: item.summonerName,
-               riotIdGameName: item.riotIdGameName,
-               riotIdTagline: item.riotIdTagline,
-               win: item.win,
-               championName: item.championName
-            }
-         }
-
-
-         count = count + 1
-      })
+      console.log(matchData)
+      const playerInMatchData = getUserMatchData.playerSearchData
+      const allPlayersMatchData = getUserMatchData.playerInMatchData
       return (
 
          <>
-            <div className={`playerHistoryMatchQuad + ${matchData.info.win}`}>
+            <div className={`playerHistoryMatchQuad + ${matchData ? matchData.info.win : 'win'}`}>
                <div className='playerHistoryMatchContainer'>
                   <div className='matchQueueDataContainer'>
                      <div>
@@ -156,20 +26,19 @@ class matchPlayer extends Component {
                      </div>
                   </div>
                </div>
-               <p>{playerSearchData ? 'Oláa': 'nãooo'}</p>
                <div className='matchChampionBuildContainer'>
                   <div>
                      <div className='championTalents'>
                         <img
                            id='championIcon'
-                          /*  src={playerSearchData ? `${BASE_URL}/championIcon/${playerSearchData.championName}` : 'hi'} */
+                           src={`${BASE_URL}championIcon/${playerInMatchData.championName}`}
                            alt="icone do champion" />
                         <div>
                            <img
-                              src="https://fakeimg.pl/30x30?font=bebas"
+                              src={BASE_URL+`talentIcon/${playerInMatchData.playerTalents.id_0}`}
                               alt="" />
                            <img
-                              src="https://fakeimg.pl/30x30?font=bebas"
+                              src={BASE_URL+`talentIcon/${playerInMatchData.playerTalents.id_1}`}
                               alt="" />
                         </div>
                         <div>
@@ -182,7 +51,7 @@ class matchPlayer extends Component {
                         </div>
 
                         <div className='matchKDAContainer'>
-                           <span id='matchKDA' className='matchKDA'>9/14/6</span>
+                           <span id='matchKDA' className='matchKDA'>{playerInMatchData.playerKDA.kills}/{playerInMatchData.playerKDA.deaths}/{playerInMatchData.playerKDA.assists}</span>
                            <span id='matchKDATotal' className='matchKDATotal'>KDA: 1.21</span>
                         </div>
 
@@ -193,25 +62,25 @@ class matchPlayer extends Component {
                   </div>
                   <div id='matchPlayerBuild' className='matchPlayerBuild'>
                      <img
-                        src="https://fakeimg.pl/30x30?font=bebas"
+                        src={BASE_URL + `itemIcon/${playerInMatchData.playerBuild.item_0}`}
                         alt="" />
                      <img
-                        src="https://fakeimg.pl/30x30?font=bebas"
+                        src={BASE_URL + `itemIcon/${playerInMatchData.playerBuild.item_1}`}
                         alt="" />
                      <img
-                        src="https://fakeimg.pl/30x30?font=bebas"
+                        src={BASE_URL + `itemIcon/${playerInMatchData.playerBuild.item_2}`}
                         alt="" />
                      <img
-                        src="https://fakeimg.pl/30x30?font=bebas"
+                        src={BASE_URL + `itemIcon/${playerInMatchData.playerBuild.item_3}`}
                         alt="" />
                      <img
-                        src="https://fakeimg.pl/30x30?font=bebas"
+                        src={BASE_URL + `itemIcon/${playerInMatchData.playerBuild.item_4}`}
                         alt="" />
                      <img
-                        src="https://fakeimg.pl/30x30?font=bebas"
+                        src={BASE_URL + `itemIcon/${playerInMatchData.playerBuild.item_5}`}
                         alt="" />
                      <img
-                        src="https://fakeimg.pl/30x30?font=bebas"
+                        src={BASE_URL + `itemIcon/${playerInMatchData.playerBuild.item_6}`}
                         alt="" />
                      <div>
                         <span id='playerPositionMatch' className='playerPositionMatch'>6 TH</span>
@@ -226,24 +95,24 @@ class matchPlayer extends Component {
                            <td>
                               <ul>
                                  <li>
-                                    <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">{playerInMatchData.blueSide[0].riotIdGameName}</a>
+                                    <img src={BASE_URL + `championIcon/${allPlayersMatchData.blueSide[0].championName}`} alt="" />
+                                    <a href="#">{allPlayersMatchData.blueSide[0].riotIdGameName}</a>
                                  </li>
                                  <li>
-                                    <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">{playerInMatchData.blueSide[1].riotIdGameName}</a>
+                                    <img src={BASE_URL + `championIcon/${allPlayersMatchData.blueSide[1].championName}`} alt="" />
+                                    <a href="#">{allPlayersMatchData.blueSide[1].riotIdGameName}</a>
                                  </li>
                                  <li>
-                                    <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">{playerInMatchData.blueSide[2].riotIdGameName}</a>
+                                    <img src={BASE_URL + `championIcon/${allPlayersMatchData.blueSide[2].championName}`} alt="" />
+                                    <a href="#">{allPlayersMatchData.blueSide[2].riotIdGameName}</a>
                                  </li>
                                  <li>
-                                    <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">{playerInMatchData.blueSide[3].riotIdGameName}</a>
+                                    <img src={BASE_URL + `championIcon/${allPlayersMatchData.blueSide[3].championName}`} alt="" />
+                                    <a href="#">{allPlayersMatchData.blueSide[3].riotIdGameName}</a>
                                  </li>
                                  <li>
-                                    <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">{playerInMatchData.blueSide[4].riotIdGameName}</a>
+                                    <img src={BASE_URL + `championIcon/${allPlayersMatchData.blueSide[4].championName}`} alt="" />
+                                    <a href="#">{allPlayersMatchData.blueSide[4].riotIdGameName}</a>
                                  </li>
                               </ul>
                            </td>
@@ -252,24 +121,24 @@ class matchPlayer extends Component {
                            <td>
                               <ul>
                                  <li>
-                                    <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">{playerInMatchData.redSide[5].riotIdGameName}</a>
+                                    <img src={BASE_URL + `championIcon/${allPlayersMatchData.redSide[5].championName}`} alt="" />
+                                    <a href="#">{allPlayersMatchData.redSide[5].riotIdGameName}</a>
                                  </li>
                                  <li>
-                                    <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">{playerInMatchData.redSide[6].riotIdGameName}</a>
+                                    <img src={BASE_URL + `championIcon/${allPlayersMatchData.redSide[6].championName}`} alt="" />
+                                    <a href="#">{allPlayersMatchData.redSide[6].riotIdGameName}</a>
                                  </li>
                                  <li>
-                                    <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">{playerInMatchData.redSide[7].riotIdGameName}</a>
+                                    <img src={BASE_URL + `championIcon/${allPlayersMatchData.redSide[7].championName}`} alt="" />
+                                    <a href="#">{allPlayersMatchData.redSide[7].riotIdGameName}</a>
                                  </li>
                                  <li>
-                                    <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">{playerInMatchData.redSide[8].riotIdGameName}</a>
+                                    <img src={BASE_URL + `championIcon/${allPlayersMatchData.redSide[8].championName}`} alt="" />
+                                    <a href="#">{allPlayersMatchData.redSide[8].riotIdGameName}</a>
                                  </li>
                                  <li>
-                                    <img src="https://fakeimg.pl/15x15?font=bebas" alt="" />
-                                    <a href="#">{playerInMatchData.redSide[9].riotIdGameName}</a>
+                                    <img src={BASE_URL + `championIcon/${allPlayersMatchData.redSide[9].championName}`} alt="" />
+                                    <a href="#">{allPlayersMatchData.redSide[9].riotIdGameName}</a>
                                  </li>
                               </ul>
                            </td>
