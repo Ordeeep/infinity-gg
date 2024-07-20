@@ -6,7 +6,11 @@ class matchPlayer extends Component {
    render() {
 
       const { matchData, userPUUID, BASE_URL, getUserMatchData } = this.props;
-      console.log(matchData)
+      let gameEndTimestamp = matchData.info.gameEndTimestamp //Tempo que a partida acabou
+      let dateMatchEnd = new Date(gameEndTimestamp)
+      let horas = dateMatchEnd.getHours()
+      let minutos = dateMatchEnd.getMinutes()
+      let segundos = dateMatchEnd.getSeconds()
       const playerInMatchData = getUserMatchData.playerSearchData
       const allPlayersMatchData = getUserMatchData.playerInMatchData
       return (
@@ -18,7 +22,7 @@ class matchPlayer extends Component {
                      <div>
                         <span className='matchQueueType'>{matchData.info.queueId}</span>
                         <span className='matchWinOrLoser'>{matchData.info.win ? 'Vitória' : 'Derrota'}</span>
-                        <span className='matchDataOld'>21 horas atras</span>
+                        <span className='matchDataOld'>{`${horas}h:${minutos}m:${segundos}s`}</span>
                      </div>
                      <div>
                         <span className='matchTotalMinutes' id='matchTotalMinutes'>Duração 32:21M</span>

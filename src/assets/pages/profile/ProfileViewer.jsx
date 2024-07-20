@@ -419,7 +419,9 @@ function ProfileViewer() {
                   'Eu não estou aqui'
                 )}
               </div>
-
+              <div className="searchMoreMatchsContainer">
+                <button>Procurar mais...</button>
+              </div>
             </section>
           </div>
         </div>
