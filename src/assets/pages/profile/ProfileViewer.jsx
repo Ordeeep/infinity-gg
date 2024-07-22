@@ -10,6 +10,8 @@ function ProfileViewer() {
   const BASE_URL = 'http://localhost:3333/'
   const [userData, setUserData] = useState([])
   const [loading, setLoading] = useState(false)
+  const [modal, setModal] = useState(false)
+  const [skeletonCss, setskeletonCss] = useState(false)
 
   function handleKeyDown(event) {
     if (event.key === 'Enter') {
@@ -32,13 +34,13 @@ function ProfileViewer() {
       if (response.status === 200) {
         setLoading(false);
         setUserData(response.data)
-      } else {
-        window.alert("Algo deu errado...");
-        setLoading(false);
+        setskeletonCss(true)
+
       }
     } catch (error) {
-      console.log(error);
+      setModal(true)
       setLoading(false);
+      setskeletonCss(true)
     }
   }
   async function requestApiToReload() {
@@ -49,13 +51,12 @@ function ProfileViewer() {
       if (response.status === 200) {
         setLoading(false);
         setUserData(response.data)
-      } else {
-        setLoading(false);
-        window.alert("Algo deu errado...");
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      console.log('abrir modal')
+      setModal(true)
+
     }
   }
 
@@ -244,16 +245,16 @@ function ProfileViewer() {
                   <img
                     src={`${BASE_URL}playerIcon/${userData.profileIconId}`}
                     alt="" />
-                  <div>
-                    <span id="playerLevel">{userData ? userData.summonerLevel : 'NULL'}</span>
+                  <div className='playerLevelContainer2'>
+                    <span className={skeletonCss ? 'playerLevelSpan' : 'skeleton skeleton-text-level'} >{userData ? userData.summonerLevel : 'NULL'}</span>
                   </div>
                 </div>
 
                 {/*Nome + Level do player junto ao botão de att*/}
                 <div className="playerNameContainertwo">
-                  <div>
-                    <span id="playerName" className="playerName">
-                      {userData.gameName ? `${userData.gameName}#${userData.tagLine}` : 'No data'}
+                  <div className={skeletonCss ? '' : 'skeleton'}>
+                    <span className="playerName">
+                      {userData.gameName ? `${userData.gameName}#${userData.tagLine}` : ''}
                     </span>
                   </div>
                   <div>
@@ -270,76 +271,77 @@ function ProfileViewer() {
                     >
                       Ver mais
                     </button>
-                    <span id="playerProfileLastUpdated">
-                      Ultima vez atualizado: 8 horas.
-                    </span>
+                    <div className={skeletonCss ? '' : 'skeleton'}>
+                      <span>
+                        {/*{userData ? '' : ''} */}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
 
               {/*Parte do elo*/}
               <div className="playerEloContainer">
-                <div className="eloContainer">
+                <div className="eloContainer" >
                   <span>Ranqueada Solo/Duo</span>
 
-                  <div className="eloContainer2">
-
+                  <div className={`eloContainer2 ${skeletonCss ? '' : 'skeleton'}`}>
                     <div>
                       <img src={userData.ranked ? BASE_URL + "elo/" + userData.ranked.solo_duo.tier : `${BASE_URL}elo/undefined`} alt="elo" />
-                      <div>
-                        <span id="playerEloNameSoloDuo">{userData.ranked ? userData.ranked.solo_duo.tier : 'No data tier'}</span>
-                        <span id="playerEloPdlSoloDuo">{userData.ranked ? userData.ranked.solo_duo.pdl + ' Pdl' : 'No data pdl'}</span>
+                      <div >
+                        <span id="playerEloNameSoloDuo" >{userData.ranked ? userData.ranked.solo_duo.tier : ''}</span>
+                        <span id="playerEloPdlSoloDuo" >{userData.ranked ? userData.ranked.solo_duo.pdl + ' Pdl' : ''}</span>
                       </div>
                     </div>
                     <div>
                       <div>
                         <span>
-                          <span id="playerTotalWinsSoloDuo">{userData.ranked ? userData.ranked.solo_duo.wins + 'V' : '0V'} / {userData.ranked ? userData.ranked.solo_duo.losses + 'L' : '0L'}</span>
+                          <span id="playerTotalWinsSoloDuo">{userData.ranked ? userData.ranked.solo_duo.wins + 'V' : ''} {userData.ranked ? userData.ranked.solo_duo.losses + 'L' : ''}</span>
                         </span>
                       </div>
                       <span className="playerEloWinRate">
-                        Winrate: {
+                        {
                           userData.ranked ?
                             (() => {
                               const winRate = (userData.ranked.solo_duo.wins / (userData.ranked.solo_duo.wins + userData.ranked.solo_duo.losses)) * 100;
-                              return isNaN(winRate) ? 'No data' : winRate.toFixed(0);
+                              return isNaN(winRate) ? 'No data' : winRate.toFixed(0) + '%';
                             })()
-                            : '0'
-                        }%
+                            : ''
+                        }
                       </span>
                     </div>
                   </div>
                 </div>
 
-                <div className="eloContainer">
+                <div className="eloContainer" >
                   <span>Ranqueada Flex</span>
 
-                  <div className="eloContainer2">
+                  <div className={`eloContainer2 ${skeletonCss ? '' : 'skeleton'}`}>
 
                     <div>
                       <img
                         src={userData.ranked ? BASE_URL + "elo/" + userData.ranked.flex.tier : `${BASE_URL}elo/undefined`}
                         alt="elo" />
                       <div>
-                        <span id="playerEloNameFlex">{userData.ranked ? userData.ranked.flex.tier : 'No data tier'}</span>
-                        <span id="playerEloPdlFlex">{userData.ranked ? userData.ranked.flex.pdl + ' Pdl' : 'No data pdl'}</span>
+                        <span id="playerEloNameFlex">{userData.ranked ? userData.ranked.flex.tier : ''}</span>
+                        <span id="playerEloPdlFlex">{userData.ranked ? userData.ranked.flex.pdl + ' Pdl' : ''}</span>
                       </div>
                     </div>
                     <div>
                       <div>
                         <span>
-                          <span id="playerTotalWinsSoloDuo">{userData.ranked ? userData.ranked.flex.wins + 'V' : '0V'} / {userData.ranked ? userData.ranked.flex.losses + 'L' : '0L'}</span>
+                          <span id="playerTotalWinsSoloDuo">{userData.ranked ? userData.ranked.flex.wins + 'V' : ''}  {userData.ranked ? userData.ranked.flex.losses + 'L' : ''}</span>
                         </span>
                       </div>
                       <span className="playerEloWinRate">
-                        Winrate: {
+                        {
                           userData.ranked ?
                             (() => {
                               const winRate = (userData.ranked.flex.wins / (userData.ranked.flex.wins + userData.ranked.flex.losses)) * 100;
-                              return isNaN(winRate) ? 'No data' : winRate.toFixed(0);
+                              return isNaN(winRate) ? 'No data' : winRate.toFixed(0) + '%';
                             })()
-                            : '0'
-                        }%
+                            : ''
+                        }
                       </span>
                     </div>
 
@@ -413,14 +415,25 @@ function ProfileViewer() {
               <div className="playerHistoryMatchsContainer">
                 {userData.history ? (
                   userData.history.matchs.map((item, index) => (
-                    <MatchPlayer key={index} matchData={item} userPUUID={userData.puuid} BASE_URL={BASE_URL} getUserMatchData={getUserMatchData(item)} />
+                    <MatchPlayer key={index} matchData={item} BASE_URL={BASE_URL} getUserMatchData={getUserMatchData(item)} />
                   ))
                 ) : (
-                  'Eu não estou aqui'
+                  <>
+                    <div className="skeleton skeleton-container">
+                    </div>
+                    <div className="skeleton skeleton-container">
+                    </div>
+                    <div className="skeleton skeleton-container">
+                    </div>
+                    <div className="skeleton skeleton-container">
+                    </div>
+
+                  </>
+
                 )}
               </div>
-              <div className="searchMoreMatchsContainer">
-                <button>Procurar mais...</button>
+              <div className="searchMoreMatchsContainer ">
+                <button className="searchMoreMatchsButton">Procurar mais partidas</button>
               </div>
             </section>
           </div>
@@ -431,7 +444,19 @@ function ProfileViewer() {
           <img src="../../../../gradient-5812_256.gif" alt="" />
         </div>
       )}
+      {modal && (
+        <div className="modalErrorContainer">
+          <div>
+            <span>Jogador não encontrado!</span>
+          </div>
+          <hr />
+          <div className="containerPLayerHolder-apenas-parasla">
+            <span>Pedimos que verifique se o usuário está correto</span>
+          </div>
 
+          <div className="loadingAnimation"></div>
+        </div>
+      )}
     </div>
   );
 
