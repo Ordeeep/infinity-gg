@@ -1,4 +1,5 @@
 import './matchPlayer.css';
+import TrMatchContainer from './trMatch/TrMatchContainer'
 import React, { useState } from 'react';
 
 const MatchPlayer = (props) => {
@@ -7,9 +8,9 @@ const MatchPlayer = (props) => {
 
    const onClickMatch = () => {
       openMatch(!match);
-      console.log(!match)
-      if(!match=== true){
-      console.log(props)
+      //console.log(!match)
+      if (!match === true) {
+         console.log(props)
       } else console.log('fecheiiii')
    }
 
@@ -20,10 +21,10 @@ const MatchPlayer = (props) => {
    let segundos = dateMatchEnd.getSeconds();
    const playerInMatchData = getUserMatchData.playerSearchData;
    const allPlayersMatchData = getUserMatchData.playerInMatchData;
-
+   console.log(allPlayersMatchData.blueSide)
    return (
       <div onClick={onClickMatch}>
-         <div className={`playerHistoryMatchQuad ${matchData ? matchData.info.win : 'win'}`}>
+         <div className={`playerHistoryMatchQuad ${matchData ? matchData.info.win : 'win'} ${!match ? '' : 'playerHistoryMatchQuadOpen'}`}>
             <div className='playerHistoryMatchContainer'>
                <div className='matchQueueDataContainer'>
                   <div>
@@ -160,7 +161,27 @@ const MatchPlayer = (props) => {
          </div>
          {match && (
             <div className='showMoreDataContainer'>
+               <div className="blueTeamSide">
+                  <table className='tabelaDePontuacao'>
+                     <thead className='cabecalho'>
+                        <tr>
+                           <th className='thTeamContainer'>Equipe azul</th>
+                           <th className='thCompact'>Pontuação</th>
+                           <th className='thCompact'>KDA</th>
+                           <th className='thCompact'>Dano</th>
+                           <th className='thCompact'>Farm</th>
+                           <th className='thTeamBuild'>Build</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        {Object.keys(allPlayersMatchData.blueSide).map((key) => (
+                           <TrMatchContainer key={key} BASE_URL={BASE_URL} matchData={matchData} player={allPlayersMatchData.blueSide[key]} />
+                        ))}
 
+                     </tbody>
+                  </table>
+
+               </div>
             </div>
          )}
       </div>

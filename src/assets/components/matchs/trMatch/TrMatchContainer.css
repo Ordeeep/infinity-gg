@@ -1,0 +1,63 @@
+tbody {
+   .textCenter {
+      font-size: 1.6rem;
+      text-align: center;
+   }
+   
+   .firstContainer {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 0.5rem;
+
+      .playerChampionIcon {
+         width: 3.5rem;
+         border-radius: 0.8rem;
+         margin-right: 0.5rem;
+      }
+
+      .iconTalentsContainer {
+         display: flex;
+         width: 15px;
+         gap: 0.5rem;
+         flex-direction: column;
+         justify-content: space-between;
+
+         img {
+            border-radius: 0.5rem;
+
+         }
+      }
+
+      .iconTalentsContainer+.iconTalentsContainer {
+         margin-left: 0.3rem;
+      }
+
+      .playerEloContainer {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         background-color: #49ca70;
+         width: 2.5rem;
+         height: 1.7rem;
+         border-radius: 5px;
+         font-weight: 500;
+         color: var(--white);
+         margin: 0px 0.5rem;
+      }
+   }
+
+   .tableMatchPlayerBuild {
+      .matchPlayerBuild {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         gap: 2px;
+
+         img {
+            border-radius: 0.8rem;
+            width: 30px;
+            height: 30px;
+         }
+      }
+   }
+}
