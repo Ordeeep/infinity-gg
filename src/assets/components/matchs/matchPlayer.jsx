@@ -5,35 +5,45 @@ import React, { useState } from 'react';
 const MatchPlayer = (props) => {
    const [match, openMatch] = useState(false);
    const { matchData, BASE_URL, getUserMatchData } = props;
+   /* console.log(matchData.info.participants[0])
+   console.log(matchData.info.participants[0].perks) */
 
    const onClickMatch = () => {
       openMatch(!match);
+      console.log(matchData)
       //console.log(!match)
       if (!match === true) {
-         console.log(props)
       } else console.log('fecheiiii')
    }
 
    let gameEndTimestamp = matchData.info.gameEndTimestamp; // Tempo que a partida acabou
    let dateMatchEnd = new Date(gameEndTimestamp);
-   let horas = dateMatchEnd.getHours();
-   let minutos = dateMatchEnd.getMinutes();
-   let segundos = dateMatchEnd.getSeconds();
+   let dateGameDuration = new Date(matchData.info.gameDuration * 1000)
+
+   let gameAllHours = {
+      duracao_partida: {
+         minutos: dateGameDuration.getMinutes(),
+         segundos: dateGameDuration.getSeconds()
+      },
+      horas_partida_final: {
+         horas: dateMatchEnd.getHours(),
+         minutos: dateMatchEnd.getMinutes(),
+         segundos: dateMatchEnd.getSeconds(),
+      }
+   }
    const playerInMatchData = getUserMatchData.playerSearchData;
    const allPlayersMatchData = getUserMatchData.playerInMatchData;
-   console.log(allPlayersMatchData.blueSide)
    return (
-      <div onClick={onClickMatch}>
-         <div className={`playerHistoryMatchQuad ${matchData ? matchData.info.win : 'win'} ${!match ? '' : 'playerHistoryMatchQuadOpen'}`}>
+      <div >
+         <div className={`playerHistoryMatchQuad ${matchData ? matchData.info.win : 'win'} ${!match ? '' : 'playerHistoryMatchQuadOpen'}`} onClick={onClickMatch}>
             <div className='playerHistoryMatchContainer'>
                <div className='matchQueueDataContainer'>
                   <div>
                      <span className='matchQueueType'>{matchData.info.queueId}</span>
                      <span className='matchWinOrLoser'>{matchData.info.win ? 'Vitória' : 'Derrota'}</span>
-                     <span className='matchDataOld'>{`${horas}h:${minutos}m:${segundos}s`}</span>
                   </div>
                   <div>
-                     <span className='matchTotalMinutes' id='matchTotalMinutes'>Duração 32:21M</span>
+                     <span className='matchTotalMinutes' id='matchTotalMinutes'>{` ${gameAllHours.duracao_partida.minutos}m:${gameAllHours.duracao_partida.segundos}s`}</span>
                      <span className='matchElo' id='matchElo'>Esmeralda 2</span>
                   </div>
                </div>
@@ -55,10 +65,10 @@ const MatchPlayer = (props) => {
                      </div>
                      <div>
                         <img
-                           src="https://fakeimg.pl/30x30?font=bebas"
+                           src={BASE_URL + `runeIcon/${playerInMatchData.playerRunes.id_0}`}
                            alt="" />
                         <img
-                           src="https://fakeimg.pl/30x30?font=bebas"
+                           src={BASE_URL + `runeIcon/${playerInMatchData.playerRunes.id_1}`}
                            alt="" />
                      </div>
 
@@ -173,14 +183,31 @@ const MatchPlayer = (props) => {
                            <th className='thTeamBuild'>Build</th>
                         </tr>
                      </thead>
-                     <tbody>
+                     <tbody className='true'>
                         {Object.keys(allPlayersMatchData.blueSide).map((key) => (
                            <TrMatchContainer key={key} BASE_URL={BASE_URL} matchData={matchData} player={allPlayersMatchData.blueSide[key]} />
                         ))}
 
                      </tbody>
                   </table>
+                  <table className='tabelaDePontuacao'>
+                     <thead>
+                        <tr>
+                           <th className='thTeamContainer'>Equipe Vermelha</th>
+                           <th className='thCompact'>Pontuação</th>
+                           <th className='thCompact'>KDA</th>
+                           <th className='thCompact'>Dano</th>
+                           <th className='thCompact'>Farm</th>
+                           <th className='thTeamBuild'>Build</th>
+                        </tr>
+                     </thead>
+                     <tbody className='false'>
+                        {Object.keys(allPlayersMatchData.redSide).map((key) => (
+                           <TrMatchContainer key={key} BASE_URL={BASE_URL} matchData={matchData} player={allPlayersMatchData.redSide[key]} />
+                        ))}
 
+                     </tbody>
+                  </table>
                </div>
             </div>
          )}

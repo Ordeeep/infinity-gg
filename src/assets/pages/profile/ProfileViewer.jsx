@@ -144,6 +144,7 @@ function ProfileViewer() {
 
     match.info.participants.map((item) => {
       if (item.puuid === userData.puuid) {
+
         playerSearchData = {
           championName: item.championName,
           role: item.role,
@@ -157,8 +158,8 @@ function ProfileViewer() {
             id_1: item.summoner2Id
           },
           playerRunes: {
-            id_0: 0,
-            id_1: 0
+            id_0: item.perks.styles[0].selections[0].perk,
+            id_1: item.perks.styles[1].selections[0].perk
           },
           playerBuild: {
             item_0: item.item0,
@@ -190,7 +191,7 @@ function ProfileViewer() {
       }
       count = count + 1
     })
-
+    
     return { playerSearchData, playerInMatchData }
   }
   return (

@@ -28,14 +28,15 @@ const TrMatchContainer = (props) => {
             talents:{
                talent_0:matchData.info.participants[key].summoner1Id,
                talent_1:matchData.info.participants[key].summoner2Id
+            },
+            runes:{
+               runes_0:matchData.info.participants[key].perks.styles[0].selections[0].perk,
+               runes_1:matchData.info.participants[key].perks.styles[1].selections[0].perk
             }
-            
             
          }
       }
    }  
-   console.log(matchData)
-   console.log(playerAllData)
    return (
 
       <>
@@ -48,8 +49,8 @@ const TrMatchContainer = (props) => {
                      <img src={BASE_URL + `talentIcon/${playerAllData.talents.talent_1}`} alt="" />
                   </div>
                   <div className='iconTalentsContainer'>
-                     <img src="https://placehold.co/20x20" alt="" />
-                     <img src="https://placehold.co/20x20" alt="" />
+                     <img src={BASE_URL + `runeIcon/${playerAllData.runes.runes_0}`} alt="" />
+                     <img src={BASE_URL + `runeSecondaryIcon/${playerAllData.runes.runes_1}`} alt="" />
                   </div>
                   <div className='playerEloContainer'>
                      <span>E4</span>
@@ -83,7 +84,7 @@ const TrMatchContainer = (props) => {
                   <img
                      src={BASE_URL + `itemIcon/${playerAllData.build.item_0}`}
                      alt="" />
-                  <img
+                  <img  
                      src={BASE_URL + `itemIcon/${playerAllData.build.item_1}`}
                      alt="" />
                   <img
