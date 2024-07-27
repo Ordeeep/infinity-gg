@@ -1,17 +1,17 @@
 import './TrMatchContainer.css';
 
 const TrMatchContainer = (props) => {
-   const { BASE_URL, matchData, player} = props
-
+   const { BASE_URL, matchData, player, maiorDanoDaPartida } = props
    let playerAllData = player
-   for(let key in matchData.info.participants){
-      if(player.riotIdGameName == matchData.info.participants[key].riotIdGameName){
-         playerAllData={
+
+   for (let key in matchData.info.participants) {
+      if (player.riotIdGameName == matchData.info.participants[key].riotIdGameName) {
+         playerAllData = {
             ...playerAllData,
             role: matchData.info.participants[key].role,
             farm: matchData.info.participants[key].totalMinionsKilled,
-            damage:matchData.info.participants[key].totalDamageDealt,
-            build:{
+            damage: matchData.info.participants[key].totalDamageDealtToChampions,
+            build: {
                item_0: matchData.info.participants[key].item0,
                item_1: matchData.info.participants[key].item1,
                item_2: matchData.info.participants[key].item2,
@@ -20,23 +20,24 @@ const TrMatchContainer = (props) => {
                item_5: matchData.info.participants[key].item5,
                item_6: matchData.info.participants[key].item6,
             },
-            kda:{
+            kda: {
                kills: matchData.info.participants[key].kills,
                deaths: matchData.info.participants[key].deaths,
                assists: matchData.info.participants[key].assists,
             },
-            talents:{
-               talent_0:matchData.info.participants[key].summoner1Id,
-               talent_1:matchData.info.participants[key].summoner2Id
+            talents: {
+               talent_0: matchData.info.participants[key].summoner1Id,
+               talent_1: matchData.info.participants[key].summoner2Id
             },
-            runes:{
-               runes_0:matchData.info.participants[key].perks.styles[0].selections[0].perk,
-               runes_1:matchData.info.participants[key].perks.styles[1].selections[0].perk
+            runes: {
+               runes_0: matchData.info.participants[key].perks.styles[0].selections[0].perk,
+               runes_1: matchData.info.participants[key].perks.styles[1].style
             }
-            
+
          }
       }
-   }  
+   }
+   console.log((playerAllData.damage / (playerAllData.damage + maiorDanoDaPartida) * 100).toFixed(2))
    return (
 
       <>
@@ -71,7 +72,11 @@ const TrMatchContainer = (props) => {
             <td className='textCenter'>
                <div>
                   <span>{playerAllData.damage}</span>
-                  <div>-</div>
+                  <div className='damageBarContainer'>
+                     <div className="damageBarTotal" style={{
+                        width: `${(playerAllData.damage / (playerAllData.damage + maiorDanoDaPartida) * 100).toFixed(2)}%`
+                     }}></div>
+                  </div>
                </div>
             </td>
             <td className='textCenter'>
@@ -84,7 +89,7 @@ const TrMatchContainer = (props) => {
                   <img
                      src={BASE_URL + `itemIcon/${playerAllData.build.item_0}`}
                      alt="" />
-                  <img  
+                  <img
                      src={BASE_URL + `itemIcon/${playerAllData.build.item_1}`}
                      alt="" />
                   <img

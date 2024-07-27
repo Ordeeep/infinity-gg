@@ -1,6 +1,6 @@
 tbody {
    .textCenter {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       text-align: center;
    }
    
@@ -58,6 +58,19 @@ tbody {
             width: 30px;
             height: 30px;
          }
+      }
+   }
+   .damageBarContainer{
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      width:100%;
+      height: 1rem;
+      background-color: var(--white);
+
+      .damageBarTotal{
+         height: 1rem;
+         background-color: var(--loser2);
       }
    }
 }

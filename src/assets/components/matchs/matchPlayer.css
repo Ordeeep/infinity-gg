@@ -1,4 +1,5 @@
 .playerHistoryMatchQuad {
+
    cursor: pointer;
    width: 100%;
    height: 11rem;
@@ -12,6 +13,7 @@
    }
 
    .playerHistoryMatchContainer {
+
       width: 15rem;
       height: 100%;
       display: flex;

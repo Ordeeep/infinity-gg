@@ -5,9 +5,14 @@ import React, { useState } from 'react';
 const MatchPlayer = (props) => {
    const [match, openMatch] = useState(false);
    const { matchData, BASE_URL, getUserMatchData } = props;
-   /* console.log(matchData.info.participants[0])
-   console.log(matchData.info.participants[0].perks) */
+   let maiorDanoDaPartida = 0
 
+   for(let key in matchData.info.participants){
+      if(matchData.info.participants[key].totalDamageDealtToChampions > maiorDanoDaPartida){
+         maiorDanoDaPartida = matchData.info.participants[key].totalDamageDealtToChampions
+      }
+   }
+   console.log(maiorDanoDaPartida)
    const onClickMatch = () => {
       openMatch(!match);
       console.log(matchData)
@@ -31,6 +36,9 @@ const MatchPlayer = (props) => {
          segundos: dateMatchEnd.getSeconds(),
       }
    }
+
+ 
+
    const playerInMatchData = getUserMatchData.playerSearchData;
    const allPlayersMatchData = getUserMatchData.playerInMatchData;
    return (
@@ -68,13 +76,13 @@ const MatchPlayer = (props) => {
                            src={BASE_URL + `runeIcon/${playerInMatchData.playerRunes.id_0}`}
                            alt="" />
                         <img
-                           src={BASE_URL + `runeIcon/${playerInMatchData.playerRunes.id_1}`}
+                           src={BASE_URL + `runeSecondaryIcon/${playerInMatchData.playerRunes.id_1}`}
                            alt="" />
                      </div>
 
                      <div className='matchKDAContainer'>
                         <span id='matchKDA' className='matchKDA'>{playerInMatchData.playerKDA.kills}/{playerInMatchData.playerKDA.deaths}/{playerInMatchData.playerKDA.assists}</span>
-                        <span id='matchKDATotal' className='matchKDATotal'>KDA: 1.21</span>
+                        <span id='matchKDATotal' className='matchKDATotal'>{`${((playerInMatchData.playerKDA.kills + playerInMatchData.playerKDA.assists) / playerInMatchData.playerKDA.deaths).toFixed(2)}`}</span>
                      </div>
 
                      <div>
@@ -185,7 +193,7 @@ const MatchPlayer = (props) => {
                      </thead>
                      <tbody className='true'>
                         {Object.keys(allPlayersMatchData.blueSide).map((key) => (
-                           <TrMatchContainer key={key} BASE_URL={BASE_URL} matchData={matchData} player={allPlayersMatchData.blueSide[key]} />
+                           <TrMatchContainer key={key} BASE_URL={BASE_URL} matchData={matchData} player={allPlayersMatchData.blueSide[key]} maiorDanoDaPartida={maiorDanoDaPartida}/>
                         ))}
 
                      </tbody>
@@ -203,7 +211,7 @@ const MatchPlayer = (props) => {
                      </thead>
                      <tbody className='false'>
                         {Object.keys(allPlayersMatchData.redSide).map((key) => (
-                           <TrMatchContainer key={key} BASE_URL={BASE_URL} matchData={matchData} player={allPlayersMatchData.redSide[key]} />
+                           <TrMatchContainer key={key} BASE_URL={BASE_URL} matchData={matchData} player={allPlayersMatchData.redSide[key]} maiorDanoDaPartida={maiorDanoDaPartida} />
                         ))}
 
                      </tbody>

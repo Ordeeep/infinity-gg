@@ -142,7 +142,9 @@ function ProfileViewer() {
     }
     let count = 0
 
+
     match.info.participants.map((item) => {
+     
       if (item.puuid === userData.puuid) {
 
         playerSearchData = {
@@ -159,7 +161,7 @@ function ProfileViewer() {
           },
           playerRunes: {
             id_0: item.perks.styles[0].selections[0].perk,
-            id_1: item.perks.styles[1].selections[0].perk
+            id_1: item.perks.styles[1].style
           },
           playerBuild: {
             item_0: item.item0,
@@ -191,7 +193,7 @@ function ProfileViewer() {
       }
       count = count + 1
     })
-    
+
     return { playerSearchData, playerInMatchData }
   }
   return (
@@ -416,7 +418,7 @@ function ProfileViewer() {
               <div className="playerHistoryMatchsContainer">
                 {userData.history ? (
                   userData.history.matchs.map((item, index) => (
-                    <MatchPlayer key={index} matchData={item} BASE_URL={BASE_URL} getUserMatchData={getUserMatchData(item)} />
+                    <MatchPlayer key={index} matchData={item} BASE_URL={BASE_URL}  getUserMatchData={getUserMatchData(item)}   />
                   ))
                 ) : (
                   <>
