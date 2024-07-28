@@ -1,18 +1,17 @@
 import './matchPlayer.css';
 import TrMatchContainer from './trMatch/TrMatchContainer'
+
 import React, { useState } from 'react';
 
 const MatchPlayer = (props) => {
    const [match, openMatch] = useState(false);
    const { matchData, BASE_URL, getUserMatchData } = props;
    let maiorDanoDaPartida = 0
-
-   for(let key in matchData.info.participants){
-      if(matchData.info.participants[key].totalDamageDealtToChampions > maiorDanoDaPartida){
+   for (let key in matchData.info.participants) {
+      if (matchData.info.participants[key].totalDamageDealtToChampions > maiorDanoDaPartida) {
          maiorDanoDaPartida = matchData.info.participants[key].totalDamageDealtToChampions
       }
    }
-   console.log(maiorDanoDaPartida)
    const onClickMatch = () => {
       openMatch(!match);
       console.log(matchData)
@@ -37,8 +36,13 @@ const MatchPlayer = (props) => {
       }
    }
 
- 
+   let maiorNumeroDeKills
+   if (matchData.info.teams[0].objectives.champion.kills >= matchData.info.teams[1].objectives.champion.kills) {
+      maiorNumeroDeKills = matchData.info.teams[0].objectives.champion.kills
+   } else {
+      maiorNumeroDeKills = matchData.info.teams[1].objectives.champion.kills
 
+   }
    const playerInMatchData = getUserMatchData.playerSearchData;
    const allPlayersMatchData = getUserMatchData.playerInMatchData;
    return (
@@ -193,11 +197,91 @@ const MatchPlayer = (props) => {
                      </thead>
                      <tbody className='true'>
                         {Object.keys(allPlayersMatchData.blueSide).map((key) => (
-                           <TrMatchContainer key={key} BASE_URL={BASE_URL} matchData={matchData} player={allPlayersMatchData.blueSide[key]} maiorDanoDaPartida={maiorDanoDaPartida}/>
+                           <TrMatchContainer key={key} BASE_URL={BASE_URL} matchData={matchData} player={allPlayersMatchData.blueSide[key]} maiorDanoDaPartida={maiorDanoDaPartida} />
                         ))}
 
                      </tbody>
                   </table>
+                  <div className='moreMatchDataContainer'>
+                     <div className='teamObjKills'>
+                        <div className="firstLine">
+                           <div>
+                              <img src="src/assets/img/baron-blue-icon.png" alt="baron_time_azul" />
+                              <span>{matchData.info.teams[0].objectives.baron.kills}</span>
+                           </div>
+                           <div>
+                              <img src="src/assets/img/drake-blue-icon.png" alt="dragões_time_azul" />
+                              <span>{matchData.info.teams[0].objectives.dragon.kills}</span>
+                           </div>
+                           <div>
+                              <img src="src/assets/img/arauto-blue-icon.png" alt="arautos_time_azul" />
+                              <span>{matchData.info.teams[0].objectives.riftHerald.kills}</span>
+                           </div>
+                        </div>
+                        <div className="secondaryLine">
+                           <div>
+                              <img src="src/assets/img/voidgrub-blue-icon.png" alt="vastilarvas_time_azul" />
+                              <span>{matchData.info.teams[0].objectives.horde.kills}</span>
+                           </div>
+                           <div>
+                              <img src="src/assets/img/tower-blue-icon.png" alt="torres_time_azul" />
+                              <span>{matchData.info.teams[0].objectives.tower.kills}</span>
+                           </div>
+                           <div>
+                              <img src="src/assets/img/inibidor-blue-icon.png" alt="inibidores_time_azul" />
+                              <span>{matchData.info.teams[0].objectives.inhibitor.kills}</span>
+                           </div>
+                        </div>
+                     </div>
+                     <div className='barraDeObjetivosContainer'>
+                        <div className="killsBar">
+                           <div className='realBarColorRed' style={{
+                              width: `${matchData.info.teams[0].objectives.champion.kills / (matchData.info.teams[0].objectives.champion.kills + matchData.info.teams[1].objectives.champion.kills) * 100}%`
+                           }}>
+                           </div>
+
+                           <div className="blueTeam">{matchData.info.teams[0].objectives.champion.kills}</div>
+                           <div className="heroText">Total de kills</div>
+                           <div className="redTeam">{matchData.info.teams[1].objectives.champion.kills}</div>
+
+                        </div>
+                        <div className="goldBar">
+                           <div className="blueTeam">30.000</div>
+                           <div className="heroText">Total de gold</div>
+                           <div className="redTeam">30.000</div>
+                        </div>
+                     </div>
+                     <div className='teamObjKills'>
+                        <div className="firstLine">
+                           <div>
+                              <img src="src/assets/img/baron-red-icon.png" alt="baron_time_vermelho" />
+                              <span>{matchData.info.teams[1].objectives.baron.kills}</span>
+                           </div>
+                           <div>
+                              <img src="src/assets/img/drake-red-icon.png" alt="dragões_time_vermelho" />
+                              <span>{matchData.info.teams[1].objectives.dragon.kills}</span>
+                           </div>
+                           <div>
+                              <img src="src/assets/img/arauto-red-icon.png" alt="arautos_time_vermelho" />
+                              <span>{matchData.info.teams[1].objectives.riftHerald.kills}</span>
+                           </div>
+                        </div>
+                        <div className="secondaryLine">
+                           <div>
+                              <img src="src/assets/img/voidgrub-red-icon.png" alt="vastilarvas_time_vermelho" />
+                              <span>{matchData.info.teams[1].objectives.horde.kills}</span>
+                           </div>
+                           <div>
+                              <img src="src/assets/img/tower-red-icon.png" alt="torres_time_vermelho" />
+                              <span>{matchData.info.teams[1].objectives.tower.kills}</span>
+                           </div>
+                           <div>
+                              <img src="src/assets/img/inibidor-red-icon.png" alt="inibidores_time_vermelho" />
+                              <span>{matchData.info.teams[1].objectives.inhibitor.kills}</span>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
                   <table className='tabelaDePontuacao'>
                      <thead>
                         <tr>

@@ -37,7 +37,6 @@ const TrMatchContainer = (props) => {
          }
       }
    }
-   console.log((playerAllData.damage / (playerAllData.damage + maiorDanoDaPartida) * 100).toFixed(2))
    return (
 
       <>
@@ -49,19 +48,19 @@ const TrMatchContainer = (props) => {
                      <img src={BASE_URL + `talentIcon/${playerAllData.talents.talent_0}`} alt="" />
                      <img src={BASE_URL + `talentIcon/${playerAllData.talents.talent_1}`} alt="" />
                   </div>
-                  <div className='iconTalentsContainer'>
+                  <div className='iconTalentsContainer runesContainer'>
                      <img src={BASE_URL + `runeIcon/${playerAllData.runes.runes_0}`} alt="" />
                      <img src={BASE_URL + `runeSecondaryIcon/${playerAllData.runes.runes_1}`} alt="" />
                   </div>
                   <div className='playerEloContainer'>
                      <span>E4</span>
                   </div>
-                  <span className='playerNickName'>{player.riotIdGameName + '#' + player.riotIdTagline}</span>
+                  <span className='playerNickName'>{player.riotIdGameName}</span>
                </div>
             </td>
             <td className='textCenter'>
                <div>
-                  <span className='playerMatchScore'>5.5</span>
+                  <span className='playerMatchScore'>{((playerAllData.kda.kills + playerAllData.kda.assists) / playerAllData.kda.deaths).toFixed(1) }</span>
                </div>
             </td>
             <td className='textCenter'>
@@ -74,7 +73,7 @@ const TrMatchContainer = (props) => {
                   <span>{playerAllData.damage}</span>
                   <div className='damageBarContainer'>
                      <div className="damageBarTotal" style={{
-                        width: `${(playerAllData.damage / (playerAllData.damage + maiorDanoDaPartida) * 100).toFixed(2)}%`
+                        width: `${((playerAllData.damage / maiorDanoDaPartida) * 100).toFixed(2)}%`
                      }}></div>
                   </div>
                </div>
