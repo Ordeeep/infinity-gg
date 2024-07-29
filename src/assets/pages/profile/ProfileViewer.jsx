@@ -12,7 +12,10 @@ function ProfileViewer() {
   const [loading, setLoading] = useState(false)
   const [modal, setModal] = useState(false)
   const [skeletonCss, setskeletonCss] = useState(false)
-
+  const [select, setSelect] = useState(false)
+  const [idioma, setIdioma] = useState('')
+  let IDIOMA_JSON= '../../translation/languages/Portugues.json'
+  console.log(IDIOMA_JSON)
   function handleKeyDown(event) {
     if (event.key === 'Enter') {
       let inputValue = event.target.value;
@@ -26,6 +29,18 @@ function ProfileViewer() {
     }
   };
 
+  function abrirSelectIdiomas() {
+    setSelect(prevSelect => !prevSelect);
+  }
+
+  async function trocarIdioma(event){
+    const newIdioma = event.currentTarget.getAttribute('data-value');
+    setIdioma(newIdioma)
+    IDIOMA_JSON = await import(`../../translation/languages/${newIdioma}.json`)
+    console.log(IDIOMA_JSON.default)
+    setSelect(prevSelect => !prevSelect);
+
+  }
   async function requestApi(inputValue) {
     try {
       setLoading(true)
@@ -144,7 +159,7 @@ function ProfileViewer() {
 
 
     match.info.participants.map((item) => {
-     
+
       if (item.puuid === userData.puuid) {
 
         playerSearchData = {
@@ -224,6 +239,26 @@ function ProfileViewer() {
               </li>
             </ul>
           </div>
+          <div>
+            <div className="selecionarIdiomaContainer">
+              <div className="opcaoSelecionada" onClick={abrirSelectIdiomas}>
+                <span>{idioma ? idioma : 'Portugues'}</span>
+              </div>
+              {select && (
+                <div className="outrasOpcao">
+                  <div onClick={trocarIdioma} data-value='Ingles'>
+                    <span>Ingles</span>
+                  </div>
+                  <div onClick={trocarIdioma} data-value='Portugues'>
+                    <span>Portugues</span>
+                  </div>
+                  <div onClick={trocarIdioma} data-value='Espanhol'>
+                    <span>Espanhol</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </nav>
       </header>
 
@@ -286,10 +321,10 @@ function ProfileViewer() {
               {/*Parte do elo*/}
               <div className="playerEloContainer">
                 <div className="eloContainer" >
-                  <span>Ranqueada Solo/Duo</span>
+                  <span>{IDIOMA_JSON ? '': 'no data'}</span>
 
                   <div className={`eloContainer2 ${skeletonCss ? '' : 'skeleton'}`}>
-                    <div>
+                    <div> 
                       <img src={userData.ranked ? BASE_URL + "elo/" + userData.ranked.solo_duo.tier : `${BASE_URL}elo/undefined`} alt="elo" />
                       <div >
                         <span id="playerEloNameSoloDuo" >{userData.ranked ? userData.ranked.solo_duo.tier : ''}</span>
@@ -418,7 +453,7 @@ function ProfileViewer() {
               <div className="playerHistoryMatchsContainer">
                 {userData.history ? (
                   userData.history.matchs.map((item, index) => (
-                    <MatchPlayer key={index} matchData={item} BASE_URL={BASE_URL}  getUserMatchData={getUserMatchData(item)}   />
+                    <MatchPlayer key={index} matchData={item} BASE_URL={BASE_URL} getUserMatchData={getUserMatchData(item)} />
                   ))
                 ) : (
                   <>

@@ -2,6 +2,37 @@
    background-color: var(--bg-secondary);
    padding: 1.5rem 4rem 1rem 4rem;
 
+   .selecionarIdiomaContainer {
+      width: 15rem;
+
+      position: relative;
+
+      .opcaoSelecionada {
+         cursor: pointer;
+         border-radius: 0.8rem;
+         font-weight: 600;
+         font-size: 1.2rem;
+         padding: 1rem 1rem;
+         background-color: var(--white);
+      }
+
+      .outrasOpcao {
+         position: absolute;
+         margin-top: 0.3rem;
+         width: 100%;
+         background-color: var(--white);
+         border-radius: 0.8rem;
+
+         div {
+            cursor: pointer;
+            padding: 1rem 1rem;
+            font-size: 1.2rem;
+            border-bottom: 1px solid var(--light-gray);
+         }
+      }
+   }
+
+
    .profileNav {
       position: relative;
       display: flex;
@@ -479,9 +510,10 @@ body {
    }
 
 }
-@keyframes loadingAnimationModal{
+
+@keyframes loadingAnimationModal {
    0% {
-     width: 0%;
+      width: 0%;
    }
 
    100% {
@@ -489,13 +521,13 @@ body {
    }
 }
 
-.loadingAnimation{
+.loadingAnimation {
    position: absolute;
    bottom: 0;
    border-radius: 0px 0px 8px 8px;
    height: 2rem;
    background-color: var(--win);
-   animation: loadingAnimationModal 3s forwards cubic-bezier(0,0,0,0) ;
+   animation: loadingAnimationModal 3s forwards cubic-bezier(0, 0, 0, 0);
 }
 
 .modalErrorContainer {
@@ -509,16 +541,17 @@ body {
    border: 1px solid var(--bg-secondary);
    text-align: center;
 
-   div:first-child  span{
+   div:first-child span {
       padding: 1rem 0px 0.5rem 0px;
       font-size: 1.8rem;
       display: block;
       line-height: 14px;
    }
-   .containerPLayerHolder-apenas-parasla{
+
+   .containerPLayerHolder-apenas-parasla {
       margin-top: 10px;
 
-      span{
+      span {
          padding: 0px 20px;
          font-size: 1.4rem;
       }

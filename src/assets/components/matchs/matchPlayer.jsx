@@ -7,11 +7,22 @@ const MatchPlayer = (props) => {
    const [match, openMatch] = useState(false);
    const { matchData, BASE_URL, getUserMatchData } = props;
    let maiorDanoDaPartida = 0
+   let totalGoldGanho = {
+      blue_team: 0,
+      red_team: 0
+   }
    for (let key in matchData.info.participants) {
+      if (matchData.info.participants[key].teamId == 100) {
+         //Calculando o total de ouro de cada time, 100 sendo azul e 200 sendo o vermelho
+         totalGoldGanho.blue_team = totalGoldGanho.blue_team + matchData.info.participants[key].goldEarned
+      } else {
+         totalGoldGanho.red_team = totalGoldGanho.red_team + matchData.info.participants[key].goldEarned
+      }
       if (matchData.info.participants[key].totalDamageDealtToChampions > maiorDanoDaPartida) {
          maiorDanoDaPartida = matchData.info.participants[key].totalDamageDealtToChampions
       }
    }
+   console.log(totalGoldGanho)
    const onClickMatch = () => {
       openMatch(!match);
       console.log(matchData)
@@ -246,9 +257,14 @@ const MatchPlayer = (props) => {
 
                         </div>
                         <div className="goldBar">
-                           <div className="blueTeam">30.000</div>
+                           <div className='realBarColorRed' style={{
+                              width: `${totalGoldGanho.blue_team / (totalGoldGanho.blue_team + totalGoldGanho.red_team) * 100}%`
+                           }}>
+                           </div>
+
+                           <div className="blueTeam">{totalGoldGanho.blue_team}</div>
                            <div className="heroText">Total de gold</div>
-                           <div className="redTeam">30.000</div>
+                           <div className="redTeam">{totalGoldGanho.red_team}</div>
                         </div>
                      </div>
                      <div className='teamObjKills'>
