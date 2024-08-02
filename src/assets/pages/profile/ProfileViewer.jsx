@@ -5,7 +5,7 @@ import React from "react";
 import { useState } from 'react'
 
 import "./ProfileViewer.css";
-
+import { useTranslation } from "react-i18next";
 function ProfileViewer() {
   const BASE_URL = 'http://localhost:3333/'
   const [userData, setUserData] = useState([])
@@ -13,9 +13,12 @@ function ProfileViewer() {
   const [modal, setModal] = useState(false)
   const [skeletonCss, setskeletonCss] = useState(false)
   const [select, setSelect] = useState(false)
-  const [idioma, setIdioma] = useState('')
-  let IDIOMA_JSON= '../../translation/languages/Portugues.json'
-  console.log(IDIOMA_JSON)
+
+  const { t, i18n: {
+    changeLanguage, language
+  } } = useTranslation()
+  const [currentLanguage, setCurrentLanguage] = useState(language)
+
   function handleKeyDown(event) {
     if (event.key === 'Enter') {
       let inputValue = event.target.value;
@@ -33,14 +36,14 @@ function ProfileViewer() {
     setSelect(prevSelect => !prevSelect);
   }
 
-  async function trocarIdioma(event){
-    const newIdioma = event.currentTarget.getAttribute('data-value');
-    setIdioma(newIdioma)
-    IDIOMA_JSON = await import(`../../translation/languages/${newIdioma}.json`)
-    console.log(IDIOMA_JSON.default)
-    setSelect(prevSelect => !prevSelect);
+  function trocarIdioma(event) {
+    const idiomaSelecionado = event.currentTarget.getAttribute('data-value');
 
+    changeLanguage(idiomaSelecionado)
+    setCurrentLanguage(idiomaSelecionado)
+    setSelect(prevSelect => !prevSelect);
   }
+
   async function requestApi(inputValue) {
     try {
       setLoading(true)
@@ -242,18 +245,16 @@ function ProfileViewer() {
           <div>
             <div className="selecionarIdiomaContainer">
               <div className="opcaoSelecionada" onClick={abrirSelectIdiomas}>
-                <span>{idioma ? idioma : 'Portugues'}</span>
-              </div>
+                <span>{t(`languages.${currentLanguage}`)}</span>
+                <img src="src/assets/img/traducao.png" alt="" />
+              </div>    
               {select && (
                 <div className="outrasOpcao">
-                  <div onClick={trocarIdioma} data-value='Ingles'>
-                    <span>Ingles</span>
+                  <div onClick={trocarIdioma} data-value='en'>
+                    <span>{t('languages.en')}</span>
                   </div>
-                  <div onClick={trocarIdioma} data-value='Portugues'>
-                    <span>Portugues</span>
-                  </div>
-                  <div onClick={trocarIdioma} data-value='Espanhol'>
-                    <span>Espanhol</span>
+                  <div onClick={trocarIdioma} data-value='pt'>
+                    <span>{t('languages.pt')}</span>
                   </div>
                 </div>
               )}
@@ -301,13 +302,13 @@ function ProfileViewer() {
                       className="profilePlayerButton"
                       id="profilePlayerButtonAtt"
                     >
-                      Atualizar
+                      {t(`buttons.refresh`)}
                     </button>
                     <button
                       className="profilePlayerButton"
                       id="profilePlayerButtonPlus"
                     >
-                      Ver mais
+                      {t(`buttons.view_more`)}
                     </button>
                     <div className={skeletonCss ? '' : 'skeleton'}>
                       <span>
@@ -321,13 +322,13 @@ function ProfileViewer() {
               {/*Parte do elo*/}
               <div className="playerEloContainer">
                 <div className="eloContainer" >
-                  <span>{IDIOMA_JSON ? '': 'no data'}</span>
+                  <span>{t(`rank_types.5v5 Ranked Solo games`)}</span>
 
                   <div className={`eloContainer2 ${skeletonCss ? '' : 'skeleton'}`}>
-                    <div> 
+                    <div>
                       <img src={userData.ranked ? BASE_URL + "elo/" + userData.ranked.solo_duo.tier : `${BASE_URL}elo/undefined`} alt="elo" />
                       <div >
-                        <span id="playerEloNameSoloDuo" >{userData.ranked ? userData.ranked.solo_duo.tier : ''}</span>
+                        <span id="playerEloNameSoloDuo" >{userData.ranked ? t(`elo_names.${userData.ranked.solo_duo.tier}`) : ''}</span>
                         <span id="playerEloPdlSoloDuo" >{userData.ranked ? userData.ranked.solo_duo.pdl + ' Pdl' : ''}</span>
                       </div>
                     </div>
@@ -352,7 +353,8 @@ function ProfileViewer() {
                 </div>
 
                 <div className="eloContainer" >
-                  <span>Ranqueada Flex</span>
+                  <span>{t(`rank_types.RANKED FLEX GAME`)}</span>
+
 
                   <div className={`eloContainer2 ${skeletonCss ? '' : 'skeleton'}`}>
 
@@ -361,7 +363,7 @@ function ProfileViewer() {
                         src={userData.ranked ? BASE_URL + "elo/" + userData.ranked.flex.tier : `${BASE_URL}elo/undefined`}
                         alt="elo" />
                       <div>
-                        <span id="playerEloNameFlex">{userData.ranked ? userData.ranked.flex.tier : ''}</span>
+                        <span id="playerEloNameFlex">{userData.ranked ? t(`elo_names.${userData.ranked.flex.tier}`) : ''}</span>
                         <span id="playerEloPdlFlex">{userData.ranked ? userData.ranked.flex.pdl + ' Pdl' : ''}</span>
                       </div>
                     </div>
@@ -471,31 +473,35 @@ function ProfileViewer() {
                 )}
               </div>
               <div className="searchMoreMatchsContainer ">
-                <button className="searchMoreMatchsButton">Procurar mais partidas</button>
+                <button className="searchMoreMatchsButton"> {t(`buttons.search_more_matchs`)}</button>
               </div>
             </section>
           </div>
         </div>
       </main>
-      {loading && (
-        <div className='modalLoading' id="modalLoading">
-          <img src="../../../../gradient-5812_256.gif" alt="" />
-        </div>
-      )}
-      {modal && (
-        <div className="modalErrorContainer">
-          <div>
-            <span>Jogador não encontrado!</span>
+      {
+        loading && (
+          <div className='modalLoading' id="modalLoading">
+            <img src="../../../../gradient-5812_256.gif" alt="" />
           </div>
-          <hr />
-          <div className="containerPLayerHolder-apenas-parasla">
-            <span>Pedimos que verifique se o usuário está correto</span>
-          </div>
+        )
+      }
+      {
+        modal && (
+          <div className="modalErrorContainer">
+            <div>
+              <span>Jogador não encontrado!</span>
+            </div>
+            <hr />
+            <div className="containerPLayerHolder-apenas-parasla">
+              <span>Pedimos que verifique se o usuário está correto</span>
+            </div>
 
-          <div className="loadingAnimation"></div>
-        </div>
-      )}
-    </div>
+            <div className="loadingAnimation"></div>
+          </div>
+        )
+      }
+    </div >
   );
 
 }

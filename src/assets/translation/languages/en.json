@@ -1,0 +1,38 @@
+{
+  "translation": {
+    "languages": {
+      "en": "English",
+      "pt": "Portuguese",
+      "es": "Spanish"
+    },
+    "header": {
+      "teste": "testing"
+    },
+    "rank_types": {
+      "5v5 Ranked Solo games": "Ranked solo duo",
+      "RANKED FLEX GAME": "Ranked Flex"
+    },
+    "buttons": {
+      "refresh": "Update",
+      "view_more": "View more",
+      "search_more_matchs": "Search more matchs"
+    },
+    "elo_names": {
+      "IRON": "Iron",
+      "BRONZE": "Bronze",
+      "SILVER": "Silver",
+      "GOLD": "Gold",
+      "PLATINUM": "Platinum",
+      "EMERALD": "Emerald",
+      "DIAMOND": "Diamond",
+      "MASTER": "Master",
+      "GRANDMASTER": "Grand-Master",
+      "CHALLENGER": "Challanger",
+      "Unranked": "Unranked"
+    },
+    "match_win_or_loser":{
+      "true":"Win",
+      "false":"Defeat"
+    }
+  }
+}

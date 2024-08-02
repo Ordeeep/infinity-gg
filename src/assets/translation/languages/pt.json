@@ -1,0 +1,38 @@
+{
+  "translation": {
+    "languages": {
+      "en": "English",
+      "pt": "Portuguese",
+      "es": "Spanish"
+    },
+    "header": {
+      "teste": "testing"
+    },
+    "rank_types": {
+      "5v5 Ranked Solo games": "Ranqueada solo duo",
+      "RANKED FLEX GAME": "Ranqueada flexível"
+    },
+    "buttons": {
+      "refresh": "Atualizar",
+      "view_more": "Ver mais",
+      "search_more_matchs": "Procure mais partidas"
+    },
+    "elo_names": {
+      "IRON": "Ferro",
+      "BRONZE": "Bronze",
+      "SILVER": "Prata",
+      "GOLD": "Ouro",
+      "PLATINUM": "Platina",
+      "EMERALD": "Esmeralda",
+      "DIAMOND": "Diamante",
+      "MASTER": "Mestre",
+      "GRANDMASTER": "Grão-Mestre",
+      "CHALLENGER": "Desafiante",
+      "Unranked": "Sem rank"
+    },
+    "match_win_or_loser":{
+      "true":"Vitória",
+      "false":"Derrota"
+    }
+  }
+}

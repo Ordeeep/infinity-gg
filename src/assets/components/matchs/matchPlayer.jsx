@@ -1,10 +1,13 @@
 import './matchPlayer.css';
 import TrMatchContainer from './trMatch/TrMatchContainer'
+import { useTranslation } from 'react-i18next';
 
 import React, { useState } from 'react';
 
 const MatchPlayer = (props) => {
    const [match, openMatch] = useState(false);
+   const { t } = useTranslation();
+
    const { matchData, BASE_URL, getUserMatchData } = props;
    let maiorDanoDaPartida = 0
    let totalGoldGanho = {
@@ -55,6 +58,8 @@ const MatchPlayer = (props) => {
 
    }
    const playerInMatchData = getUserMatchData.playerSearchData;
+    
+   console.log(matchData.info.win)
    const allPlayersMatchData = getUserMatchData.playerInMatchData;
    return (
       <div >
@@ -62,8 +67,8 @@ const MatchPlayer = (props) => {
             <div className='playerHistoryMatchContainer'>
                <div className='matchQueueDataContainer'>
                   <div>
-                     <span className='matchQueueType'>{matchData.info.queueId}</span>
-                     <span className='matchWinOrLoser'>{matchData.info.win ? 'Vitória' : 'Derrota'}</span>
+                     <span className='matchQueueType'>{t(`rank_types.${matchData.info.queueId}`)} </span>
+                     <span className='matchWinOrLoser'>{matchData.info.win ? t(`match_win_or_loser.${matchData.info.win}`) : t(`match_win_or_loser.${matchData.info.win}`)}</span>
                   </div>
                   <div>
                      <span className='matchTotalMinutes' id='matchTotalMinutes'>{` ${gameAllHours.duracao_partida.minutos}m:${gameAllHours.duracao_partida.segundos}s`}</span>
@@ -132,7 +137,6 @@ const MatchPlayer = (props) => {
                   </div>
                </div>
             </div>
-
             <div className='matchPlayersNamesContainer'>
                <table>
                   <tbody>
