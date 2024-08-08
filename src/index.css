@@ -30,3 +30,6 @@ a {
    background-color: var(--win);
    border-radius: 10px;
 }
+button:focus{
+   outline: 2px solid var(--win-secondary2);
+}

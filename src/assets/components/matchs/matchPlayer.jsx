@@ -25,13 +25,8 @@ const MatchPlayer = (props) => {
          maiorDanoDaPartida = matchData.info.participants[key].totalDamageDealtToChampions
       }
    }
-   console.log(totalGoldGanho)
    const onClickMatch = () => {
       openMatch(!match);
-      console.log(matchData)
-      //console.log(!match)
-      if (!match === true) {
-      } else console.log('fecheiiii')
    }
 
    let gameEndTimestamp = matchData.info.gameEndTimestamp; // Tempo que a partida acabou
@@ -59,7 +54,6 @@ const MatchPlayer = (props) => {
    }
    const playerInMatchData = getUserMatchData.playerSearchData;
     
-   console.log(matchData.info.win)
    const allPlayersMatchData = getUserMatchData.playerInMatchData;
    return (
       <div >

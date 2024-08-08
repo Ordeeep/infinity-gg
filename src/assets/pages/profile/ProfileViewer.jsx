@@ -50,6 +50,7 @@ function ProfileViewer() {
       const regionValue = document.getElementById('region').value
       const response = await axios.get(`${BASE_URL}user/${inputValue[0]}/${inputValue[1]}/${regionValue}`);
       if (response.status === 200) {
+        console.log(response.data.champion_mastery[0][0])
         setLoading(false);
         setUserData(response.data)
         setskeletonCss(true)
@@ -247,7 +248,7 @@ function ProfileViewer() {
               <div className="opcaoSelecionada" onClick={abrirSelectIdiomas}>
                 <span>{t(`languages.${currentLanguage}`)}</span>
                 <img src="src/assets/img/traducao.png" alt="" />
-              </div>    
+              </div>
               {select && (
                 <div className="outrasOpcao">
                   <div onClick={trocarIdioma} data-value='en'>
@@ -343,7 +344,7 @@ function ProfileViewer() {
                           userData.ranked ?
                             (() => {
                               const winRate = (userData.ranked.solo_duo.wins / (userData.ranked.solo_duo.wins + userData.ranked.solo_duo.losses)) * 100;
-                              return isNaN(winRate) ? 'No data' : winRate.toFixed(0) + '%';
+                              return isNaN(winRate) ? '0%' : winRate.toFixed(0) + '%';
                             })()
                             : ''
                         }
@@ -378,7 +379,7 @@ function ProfileViewer() {
                           userData.ranked ?
                             (() => {
                               const winRate = (userData.ranked.flex.wins / (userData.ranked.flex.wins + userData.ranked.flex.losses)) * 100;
-                              return isNaN(winRate) ? 'No data' : winRate.toFixed(0) + '%';
+                              return isNaN(winRate) ? '0%' : winRate.toFixed(0) + '%';
                             })()
                             : ''
                         }
@@ -391,66 +392,72 @@ function ProfileViewer() {
               </div>
 
               <div className="playerWinRateChampion">
-                <span className="textPlaceHolderHero">Taxa de vitoria em ranqueadas nos últimos 7 dias</span>
+                <span className="textPlaceHolderHero">Top 5 maestrias</span>
                 <div className="championsWinRateContainer">
                   <table>
                     <thead>
                       <tr>
                         <th>Campeão</th>
-                        <th>Taxa de vitória</th>
+                        <th>Nivel</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>
-                          <img
-                            src="https://fakeimg.pl/32x32?font=bebas"
-                            alt="elo"
-                            id="championWinRateIcon"
-                          />
-                          <span id="championWinRateName">Amumu</span>
-                        </td>
-                        <td>
-                          <div className="championWinRateBarContainer">
-                            <div className="winRateBar">
-                              <span>18V</span>
-                            </div>
-                            <div className="loserRateBar">
-                              <span>20L</span>
-                            </div>
-                          </div>
-                          <span className="winRateChampion" id="winRateChampion">58%</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <img
-                            src="https://fakeimg.pl/32x32?font=bebas"
-                            alt="elo"
-                            id="championWinRateIcon"
-                          />
-                          <span id="championWinRateName">Amumu</span>
-                        </td>
-                        <td>
-                          <div className="championWinRateBarContainer">
-                            <div className="winRateBar">
-                              <span>18V</span>
-                            </div>
-                            <div className="loserRateBar">
-                              <span>20L</span>
-                            </div>
-                          </div>
-                          <span className="winRateChampion" id="winRateChampion">58%</span>
-                        </td>
-                      </tr>
+                      {userData.champion_mastery ? (
+                        userData.champion_mastery[0].map((item, index) => (
+                          index <= 4 ? (
+                            <tr>
+                              <td>
+                                <img
+                                  src={`${BASE_URL}championIcon/${userData.champion_mastery[0][index].championName}`}
+                                  alt="elo"
+                                  id="championWinRateIcon"
+                                />
+                                <span>{userData.champion_mastery[0][index].championName}</span>
+
+                              </td>
+
+                              <td className="championWinRateNameContainer">
+                                <span id="championWinRateName">{userData.champion_mastery[0][index].championLevel}</span>
+
+                              </td>
+                            </tr>
+
+                          ) : null
+
+                        ))
+                      ) : (
+
+                        <>
+                          <tr className="noDataMaestry ">
+                            <td className="skeleton"></td>
+                          </tr>
+                          <tr className="noDataMaestry ">
+                            <td className="skeleton"></td>
+                          </tr>
+                          <tr className="noDataMaestry ">
+                            <td className="skeleton"></td>
+                          </tr>
+                          <tr className="noDataMaestry ">
+                            <td className="skeleton"></td>
+                          </tr>
+                          <tr className="noDataMaestry ">
+                            <td className="skeleton"></td>
+                          </tr>
+                        </>
+
+                      )}
                     </tbody>
                   </table>
                 </div>
               </div>
             </aside>
             <section className="playerHistoryContainer">
-              <div className="playerHistoryTopContainer">
-                grafico aqui
+              <div className={`playerHistoryTopContainer ${skeletonCss ? '' : 'skeleton'}`} >
+                {userData.history ? (
+                  <div>
+                    grafico aqui
+                  </div>
+                ) : ' '}
               </div>
               <div className="playerHistoryMatchsContainer">
                 {userData.history ? (
@@ -467,13 +474,11 @@ function ProfileViewer() {
                     </div>
                     <div className="skeleton skeleton-container">
                     </div>
-
                   </>
-
                 )}
-              </div>
-              <div className="searchMoreMatchsContainer ">
-                <button className="searchMoreMatchsButton"> {t(`buttons.search_more_matchs`)}</button>
+              </div>{/* ${skeletonCss ? '' : 'skeleton'} */}
+              <div className="searchMoreMatchsContainer">
+                <button className={`searchMoreMatchsButton ${skeletonCss ? '' : 'skeleton'}`}> {skeletonCss ? t(`buttons.search_more_matchs`) : ' '}</button>
               </div>
             </section>
           </div>
