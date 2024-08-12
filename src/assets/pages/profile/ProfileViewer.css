@@ -248,7 +248,6 @@ body {
 
       .playerEloContainer {
          padding: 10px 16px;
-
          .eloContainer>span {
             font-size: 1.5rem;
             font-weight: 500;
@@ -263,12 +262,19 @@ body {
             padding: 10px 0px;
             border-top: 1px solid #acacac9c;
 
-            .eloContainer2 {
+            .eloContainerTwo {
+               height: 70px;
+
                padding-bottom: 1rem;
                display: flex;
                justify-content: space-between;
                align-items: center;
 
+               .playerEloWinrate {
+                  display: flex;
+                  font-size: 1.3rem;
+                  background-color: red;
+               }
                div:first-child {
                   display: flex;
                   align-items: center;
@@ -300,12 +306,7 @@ body {
                   justify-content: end;
                }
 
-               .playerEloWinrate {
-                  display: flex;
-                  justify-content: end;
-                  font-size: 1.3rem;
-                  text-align: end;
-               }
+               
 
                #playerEloWinRateFlex,
                #playerEloPdlSoloDuo {
@@ -367,33 +368,7 @@ body {
                   width: 50%;
                   display: flex;
                }
-
-               .championWinRateBarContainer {
-                  width: 100%;
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  color: var(--white);
-                  font-size: 1.2rem;
-                  background-color: var(--bg-secondary);
-                  border-radius: 8px;
-
-                  .winRateBar {
-                     text-align: start;
-                     border-radius: 8px 0 0px 8px;
-                     padding: 0.4rem 0.8rem;
-                     background-color: var(--bg-secondary);
-                     width: 70%;
-                  }
-
-                  .loserRateBar {
-                     border-radius: 0 8px 8px 0;
-                     background-color: var(--loser);
-                     padding: 0.4rem 0.8rem;
-                     text-align: end;
-                     width: 30%;
-                  }
-               }
+               
             }
 
             tbody tr+tr {
@@ -402,6 +377,7 @@ body {
 
             tbody {
                padding-top: 10px;
+
                tr {
                   td {
                      display: flex;
@@ -413,17 +389,17 @@ body {
                         letter-spacing: 0.2rem;
                      }
                   }
-                  .championWinRateNameContainer{
+
+                  .championWinRateNameContainer {
                      display: flex;
                      justify-content: end;
                      padding-right: 1rem;
                   }
                }
-               .noDataMaestry{
-                  
-                  td{
+               .noDataMaestry {
+                  td {
                      width: 100%;
-                     height: 3rem;
+                     height: 4rem;
                   }
                }
             }
@@ -431,13 +407,13 @@ body {
       }
 
       #championWinRateName {
-         font-size: 1.4rem;
+         font-size: 1.8rem;
          text-align: end;
       }
 
       #championWinRateIcon {
          border-radius: 0.4rem;
-         width: 3rem;
+         width: 3.8rem;
       }
 
 
@@ -460,9 +436,16 @@ body {
       .playerHistoryTopContainer {
          margin-top: 2rem;
          border-radius: 1rem;
-         padding: 1rem;
          width: 95%;
-         min-height: 7rem;
+         min-height: 10rem;
+         display: flex;
+         justify-content: center;
+         
+         .playerHistoryTopContainerHero{
+            width: 100%;
+            border: 1px solid var(--win);
+            border-radius: 0.5rem;
+         }
       }
 
       .playerHistoryMatchsContainer {

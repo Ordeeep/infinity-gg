@@ -298,19 +298,27 @@ function ProfileViewer() {
                     </span>
                   </div>
                   <div>
-                    <button
-                      onClick={requestApiToReload}
-                      className="profilePlayerButton"
-                      id="profilePlayerButtonAtt"
-                    >
-                      {t(`buttons.refresh`)}
-                    </button>
-                    <button
-                      className="profilePlayerButton"
-                      id="profilePlayerButtonPlus"
-                    >
-                      {t(`buttons.view_more`)}
-                    </button>
+                    {userData.gameName ? (
+                      <>
+                        <button
+                          onClick={requestApiToReload}
+                          className="profilePlayerButton"
+                          id="profilePlayerButtonAtt"
+                        >
+                          {t(`buttons.refresh`)}
+                        </button>
+                      </>
+                    ) : ' '}
+                    {userData.gameName ? (
+                      <>
+                        <button
+                          className="profilePlayerButton"
+                          id="profilePlayerButtonPlus"
+                        >
+                          {t(`buttons.view_more`)}
+                        </button>
+                      </>
+                    ) : ' '}
                     <div className={skeletonCss ? '' : 'skeleton'}>
                       <span>
                         {/*{userData ? '' : ''} */}
@@ -325,9 +333,11 @@ function ProfileViewer() {
                 <div className="eloContainer" >
                   <span>{t(`rank_types.5v5 Ranked Solo games`)}</span>
 
-                  <div className={`eloContainer2 ${skeletonCss ? '' : 'skeleton'}`}>
+                  <div className={`eloContainerTwo ${skeletonCss ? '' : 'skeleton'}`}>
                     <div>
-                      <img src={userData.ranked ? BASE_URL + "elo/" + userData.ranked.solo_duo.tier : `${BASE_URL}elo/undefined`} alt="elo" />
+                      {userData.ranked ? (
+                        <img src={userData.ranked ? BASE_URL + "elo/" + userData.ranked.solo_duo.tier : `${BASE_URL}elo/undefined`} alt="elo" />
+                      ) : ''}
                       <div >
                         <span id="playerEloNameSoloDuo" >{userData.ranked ? t(`elo_names.${userData.ranked.solo_duo.tier}`) : ''}</span>
                         <span id="playerEloPdlSoloDuo" >{userData.ranked ? userData.ranked.solo_duo.pdl + ' Pdl' : ''}</span>
@@ -356,13 +366,14 @@ function ProfileViewer() {
                 <div className="eloContainer" >
                   <span>{t(`rank_types.RANKED FLEX GAME`)}</span>
 
-
-                  <div className={`eloContainer2 ${skeletonCss ? '' : 'skeleton'}`}>
+                  <div className={`eloContainerTwo ${skeletonCss ? '' : 'skeleton'}`}>
 
                     <div>
-                      <img
-                        src={userData.ranked ? BASE_URL + "elo/" + userData.ranked.flex.tier : `${BASE_URL}elo/undefined`}
-                        alt="elo" />
+                      {userData.ranked ? (
+                        <img
+                          src={userData.ranked ? BASE_URL + "elo/" + userData.ranked.flex.tier : `${BASE_URL}elo/undefined`}
+                          alt="elo" />
+                      ) : ''}
                       <div>
                         <span id="playerEloNameFlex">{userData.ranked ? t(`elo_names.${userData.ranked.flex.tier}`) : ''}</span>
                         <span id="playerEloPdlFlex">{userData.ranked ? userData.ranked.flex.pdl + ' Pdl' : ''}</span>
@@ -454,8 +465,10 @@ function ProfileViewer() {
             <section className="playerHistoryContainer">
               <div className={`playerHistoryTopContainer ${skeletonCss ? '' : 'skeleton'}`} >
                 {userData.history ? (
-                  <div>
-                    grafico aqui
+                  <div className="playerHistoryTopContainerHero" >
+                    <div className="leftData">a</div>
+                    <div className="middleData"></div>
+                    <div className="rightData"></div>
                   </div>
                 ) : ' '}
               </div>
